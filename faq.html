@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ — Никс Фотограф</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #18181b; color: #f4f4f5; }
+        .container { max-width: 800px; margin: 0 auto; padding: 100px 20px; }
+        h1 { text-align: center; margin-bottom: 2rem; color: #f59e0b; }
+        .faq-item { background: #27272a; margin: 1rem 0; padding: 1.5rem; border-radius: 10px; }
+        .faq-item h3 { color: #f59e0b; margin-bottom: 1rem; }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(24, 24, 27, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo a {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: #e4e4e7;
+            background: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #a1a1aa;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #e4e4e7;
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #e4e4e7;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #27272a;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                border-top: 1px solid rgba(245, 158, 11, 0.2);
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">📷 НИКС</a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">🏠 Главная</a></li>
+                <li><a href="portfolio.html" class="nav-link">📸 Портфолио</a></li>
+                <li><a href="about.html" class="nav-link">👤 Обо мне</a></li>
+                <li><a href="blog.html" class="nav-link">📝 Блог</a></li>
+                <li><a href="education.html" class="nav-link">🎓 Обучение</a></li>
+                <li><a href="faq.html" class="nav-link active">❓ FAQ</a></li>
+                <li><a href="contact.html" class="nav-link">📞 Контакты</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1>Часто задаваемые вопросы</h1>
+        
+        <div class="faq-item">
+            <h3>Сколько стоит фотосессия?</h3>
+            <p>Стоимость зависит от типа съемки и продолжительности. Свяжитесь со мной для обсуждения деталей.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>Как долго длится обработка фотографий?</h3>
+            <p>Обычно 3-7 дней в зависимости от объема работы.</p>
+        </div>
+        
+        <div class="faq-item">
+            <h3>Можно ли получить все исходные фотографии?</h3>
+            <p>Я предоставляю только обработанные фотографии высокого качества.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>
