@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой путь в фотографии — Никс Фотограф</title>
+    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="effects.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Nunito', 'Inter', sans-serif; background: #18181b; color: #f4f4f5; line-height: 1.6; }
+        
+        /* Navigation */
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(24, 24, 27, 0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 0; border-bottom: 1px solid rgba(245, 158, 11, 0.1); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: center; align-items: center; }
+        .nav-logo {
+            margin-right: 50px;
+        }
+        
+        .nav-logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .nav-logo img {
+            height: 80px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-logo:hover img {
+            transform: scale(1.1);
+        }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-link { text-decoration: none; color: #a1a1aa; font-weight: 500; transition: color 0.3s; }
+        .nav-link:hover, .nav-link.active { color: #f59e0b; }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
+        .hamburger span { width: 25px; height: 3px; background: #f59e0b; }
+        
+        .article-container { max-width: 800px; margin: 0 auto; padding: 120px 20px 60px; }
+        .article-header { margin-bottom: 3rem; text-align: center; }
+        .article-title { font-size: 3rem; color: #f59e0b; margin-bottom: 1rem; font-family: 'Playfair Display', serif; }
+        .article-date { color: #a1a1aa; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .article-date::before { content: '📅'; }
+        .back-link { display: inline-block; margin-bottom: 2rem; color: #fb923c; text-decoration: none; padding: 10px 20px; background: rgba(251, 146, 60, 0.1); border-radius: 25px; transition: all 0.3s; }
+        .back-link:hover { background: rgba(251, 146, 60, 0.2); transform: translateX(-5px); }
+        .article-content { line-height: 1.8; }
+        .article-content p { margin-bottom: 2rem; font-size: 1.1rem; padding: 1.5rem; background: #27272a; border-radius: 12px; border-left: 4px solid #f59e0b; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/niks.png" alt="Никс - Фотограф">
+                </a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">🏠 Главная</a></li>
+                <li><a href="portfolio.html" class="nav-link">📸 Портфолио</a></li>
+                <li><a href="about.html" class="nav-link">👤 Обо мне</a></li>
+                <li><a href="blog.html" class="nav-link active">📝 Блог</a></li>
+                <li><a href="contact.html" class="nav-link">📞 Контакты</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="article-container">
+        <a href="blog.html" class="back-link">← Назад к блогу</a>
+        
+        <div class="article-header animate-on-scroll">
+            <h1 class="article-title">Мой путь в фотографии</h1>
+            <div class="article-date">28 декабря 2025</div>
+        </div>
+        
+        <div class="article-content animate-on-scroll">
+            <p>Привет! Меня зовут Никс, и я хочу поделиться с вами историей о том, как я пришел в мир фотографии.</p>
+            
+            <p>Все началось довольно случайно. Несколько лет назад я просто хотел запечатлеть красивые моменты из своей жизни. У меня была обычная камера телефона, и я делал снимки всего, что казалось мне интересным.</p>
+            
+            <p>Постепенно я заметил, что некоторые мои фотографии получаются лучше других. Я начал изучать, что делает кадр привлекательным, как работает свет, какую роль играет композиция.</p>
+            
+            <p>Первой серьезной покупкой стал Canon EOS 600D. Это была настоящая революция! Возможности ручных настроек открыли передо мной совершенно новый мир творчества.</p>
+            
+            <p>Сейчас я продолжаю учиться каждый день. Каждая съемка - это новый опыт, новые эмоции и новые открытия. Фотография научила меня видеть красоту в обычных вещах и ценить каждый момент.</p>
+            
+            <p>Если вы тоже думаете о том, чтобы заняться фотографией - просто начните! Не важно, какая у вас камера. Важно желание создавать и делиться своим видением мира.</p>
+        </div>
+    </div>
+</body>
+<script src="global-effects.js"></script>
+</html>

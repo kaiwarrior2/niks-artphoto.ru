@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио — Никс Фотограф</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/fonts.css">
+    <link rel="stylesheet" href="effects.css">
+    <script src="global-effects.js"></script>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #e4e4e7;
+            --secondary-color: #f59e0b;
+            --accent-color: #fb923c;
+            --text-dark: #f4f4f5;
+            --text-light: #a1a1aa;
+            --bg-light: #18181b;
+            --bg-dark: #09090b;
+            --bg-card: #27272a;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
+            --gradient-dark: linear-gradient(135deg, #1e1e1e 0%, #2d2d30 100%);
+            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.5);
+            --transition-fast: 0.3s ease;
+            --transition-medium: 0.5s ease;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(24, 24, 27, 0.95);
+            backdrop-filter: blur(15px) saturate(180%);
+            z-index: 1000;
+            transition: all var(--transition-fast);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+        }
+        
+        .navbar.scrolled {
+            background: rgba(24, 24, 27, 0.98);
+            box-shadow: var(--shadow-light), 0 0 20px rgba(245, 158, 11, 0.1);
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            margin-right: 50px;
+        }
+        
+        .nav-logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .nav-logo img {
+            height: 84px;
+            width: auto;
+            transition: all var(--transition-fast);
+        }
+        
+        .nav-logo:hover img {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            position: relative;
+            transition: all var(--transition-fast);
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-secondary);
+            opacity: 0;
+            border-radius: 8px;
+            transition: opacity var(--transition-fast);
+            z-index: -1;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-secondary);
+            transition: all var(--transition-fast);
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::before {
+            opacity: 0.1;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Portfolio Hero */
+        .portfolio-hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .portfolio-hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-dark);
+            z-index: -2;
+        }
+        
+        .portfolio-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+        
+        .portfolio-hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .portfolio-hero-title {
+            font-family: 'Russo One', 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        
+        .portfolio-title-line {
+            display: block;
+        }
+        
+        .highlight {
+            background: linear-gradient(45deg, #f59e0b, #fb923c, #f97316, #ea580c);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .portfolio-hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .portfolio-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: 'Russo One', 'Montserrat', Arial, sans-serif;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Portfolio Filters */
+        .portfolio-filters {
+            padding: 80px 0;
+            background: var(--bg-card);
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-container.animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .filter-container.animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .filter-btn {
+            padding: 15px 30px;
+            background: var(--bg-light);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            color: var(--text-light);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--gradient-secondary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--secondary-color);
+        }
+        
+        /* Portfolio Grid */
+        .portfolio-main {
+            padding: 80px 0 100px;
+            background: var(--bg-light);
+        }
+        
+        .portfolio-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            padding-left: 30px;
+        }
+        
+        .portfolio-item {
+            width: 335px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            border: 1px solid rgba(245, 158, 11, 0.1);
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+        
+        .portfolio-image {
+            width: 100%;
+            height: 270px;
+            object-fit: cover;
+        }
+        
+        .portfolio-info {
+            padding: 1rem;
+        }
+        
+        .portfolio-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-family: 'Montserrat', Arial, sans-serif;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+        
+        .portfolio-info p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        .portfolio-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.4;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 400;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        .view-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.6rem;
+            background: var(--bg-dark);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            margin-top: 0.8rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .view-btn:hover {
+            background: white;
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .no-portfolio {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 6rem 2rem;
+            color: var(--text-light);
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 2px dashed rgba(245, 158, 11, 0.3);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .no-portfolio h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: modalZoom 0.3s ease;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+        
+        .modal-close:hover {
+            background: rgba(245, 158, 11, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .modal-info {
+            position: absolute;
+            bottom: -80px;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .modal-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        @keyframes modalZoom {
+            from {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+
+        /* Contact CTA */
+        .contact-cta {
+            padding: 100px 0;
+            background: var(--gradient-secondary);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            font-family: 'Russo One', 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        
+        .btn-primary {
+            background: var(--bg-dark);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+            background: white;
+            color: var(--bg-dark);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3,
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            transition: all var(--transition-fast);
+        }
+        
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-card);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow-medium);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all var(--transition-fast);
+                border-top: 1px solid rgba(245, 158, 11, 0.2);
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .portfolio-hero-title {
+                font-size: 3rem;
+            }
+            
+            .portfolio-stats {
+                gap: 2rem;
+            }
+            
+            .filter-container {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .modal-close {
+                top: -40px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-info {
+                bottom: -60px;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/niks.png" alt="Никс - Фотограф">
+                </a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">🏠 Главная</a></li>
+                <li><a href="portfolio.html" class="nav-link active">📸 Портфолио</a></li>
+                <li><a href="about.html" class="nav-link">👤 Обо мне</a></li>
+                <li><a href="blog.html" class="nav-link">📝 Блог</a></li>
+                <li><a href="contact.html" class="nav-link">📞 Контакты</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Portfolio Hero -->
+    <section class="portfolio-hero">
+        <div class="portfolio-hero-background"></div>
+        <div class="portfolio-hero-overlay"></div>
+        <div class="portfolio-hero-content">
+            <h1 class="portfolio-hero-title">
+                <span class="portfolio-title-line">Мое</span>
+                <span class="portfolio-title-line highlight">Портфолио</span>
+            </h1>
+            <p class="portfolio-hero-subtitle">Коллекция лучших работ и творческих проектов</p>
+            <div class="portfolio-stats">
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Проектов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1</span>
+                    <span class="stat-label">Года опыта</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Filters -->
+    <section class="portfolio-filters">
+        <div class="container">
+            <div class="filter-container animate-on-scroll">
+                <button class="filter-btn active" data-filter="all">Все работы</button>
+                <button class="filter-btn" data-filter="portrait">Портреты</button>
+                <button class="filter-btn" data-filter="street">Уличные зарисовки</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section class="portfolio-main">
+        <div class="portfolio-grid">
+            <div class="portfolio-item" data-category="portrait">
+                <img src="media/portfolio/photo_2025-12-24_07-26-43.jpg" alt="Портрет 1" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>Зима</h3>
+                    <p>Портреты</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="street">
+                <img src="media/portfolio/photo_2025-12-27_15-28-48.jpg" alt="Уличная фотография 1" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>Калининград</h3>
+                    <p>Уличные зарисовки</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="portrait">
+                <img src="media/portfolio/photo_2025-12-28_17-52-51.jpg" alt="Портрет 2" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>Лето 1</h3>
+                    <p>Портреты</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="street">
+                <img src="media/portfolio/photo_2025-12-28_17-52-56.jpg" alt="Уличная фотография 2" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>Summer 2</h3>
+                    <p>Уличные зарисовки</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="portrait">
+                <img src="media/portfolio/photo_2025-12-28_20-31-08.jpg" alt="Портрет 3" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>in the dark?</h3>
+                    <p>Портреты</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="street">
+                <img src="media/portfolio/photo_2025-12-28_20-33-33.jpg" alt="Уличная фотография 3" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>Яндексуля</h3>
+                    <p>Уличные зарисовки</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="portrait">
+                <img src="media/portfolio/photo_2025-12-28_20-35-37.jpg" alt="Портрет 4" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>Крым. Лагерь. Мост наберегу...</h3>
+                    <p>Портреты</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="street">
+                <img src="media/portfolio/photo_2026-01-19_18-34-57.jpg" alt="Закат" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>...</h3>
+                    <p>Уличные зарисовки</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="portrait">
+                <img src="media/portfolio/photo_2026-01-20_19-40-47.jpg" alt="Зима" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>winter</h3>
+                    <p>Портреты</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="portrait">
+                <img src="media/portfolio/photo_2026-01-17_19-54-36.jpg" alt="Никс" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>Никс</h3>
+                    <p>Портреты</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="street">
+                <img src="media/portfolio/photo_2026-01-20_20-43-42.jpg" alt="Осень" class="portfolio-image">
+                <div class="portfolio-info">
+                    <h3>Осень</h3>
+                    <p>Уличные зарисовки</p>
+                    <button class="view-btn">Посмотреть</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img id="modalImage" class="modal-image" src="" alt="">
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalCategory"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Готовы создать что-то особенное?</h2>
+                <p>Свяжитесь со мной, чтобы обсудить вашу фотосессию</p>
+                <a href="contact.html" class="btn btn-primary">Связаться сейчас</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>НИКС</h3>
+                    <p>Профессиональный фотограф</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="portfolio.html">Портфолио</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="about.html">Обо мне</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Email: niksfotograf@gmail.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные сети</h4>
+                    <div class="social-links">
+                        <a href="t.me/objektivniksa" class="social-link">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+        }
+
+        // Portfolio filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal functionality
+        const viewBtns = document.querySelectorAll('.view-btn');
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCategory = document.getElementById('modalCategory');
+
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const portfolioItem = e.target.closest('.portfolio-item');
+                const img = portfolioItem.querySelector('.portfolio-image');
+                const title = portfolioItem.querySelector('h3').textContent;
+                const category = portfolioItem.querySelector('p').textContent;
+
+                modalImage.src = img.src;
+                modalImage.alt = img.alt;
+                modalTitle.textContent = title;
+                modalCategory.textContent = category;
+
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Close modal function
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+    
+    <!-- Advanced Effects Script -->
+    <script src="effects.js"></script>
+</body>
+</html>

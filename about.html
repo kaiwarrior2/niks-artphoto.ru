@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обо мне — Никс Фотограф</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/fonts.css">
+    <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="global-styles.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #e4e4e7;
+            --secondary-color: #f59e0b;
+            --accent-color: #fb923c;
+            --text-dark: #f4f4f5;
+            --text-light: #a1a1aa;
+            --bg-light: #18181b;
+            --bg-dark: #09090b;
+            --bg-card: #27272a;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
+            --gradient-dark: linear-gradient(135deg, #1e1e1e 0%, #2d2d30 100%);
+            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.5);
+            --transition-fast: 0.3s ease;
+            --transition-medium: 0.5s ease;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(24, 24, 27, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all var(--transition-fast);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            margin-right: 50px;
+        }
+        
+        .nav-logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .nav-logo img {
+            height: 84px;
+            width: auto;
+            transition: all var(--transition-fast);
+        }
+        
+        .nav-logo:hover img {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            position: relative;
+            transition: all var(--transition-fast);
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-secondary);
+            opacity: 0;
+            border-radius: 8px;
+            transition: opacity var(--transition-fast);
+            z-index: -1;
+        }
+        
+        .nav-link:hover::before {
+            opacity: 0.1;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: all var(--transition-fast);
+        }
+        
+        .portfolio-hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .portfolio-hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d30 100%);
+            z-index: -2;
+        }
+        .portfolio-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+        .portfolio-hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+        .portfolio-hero-title {
+            font-family: 'Russo One', 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        .portfolio-title-line {
+            display: block;
+        }
+        .highlight {
+            background: linear-gradient(45deg, #f59e0b, #fb923c, #f97316, #ea580c);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .portfolio-hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3,
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            transition: all var(--transition-fast);
+        }
+        
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* About Content */
+        .about-content {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+        
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            text-align: justify;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border-left: 4px solid var(--secondary-color);
+            box-shadow: var(--shadow-light);
+            transition: all var(--transition-fast);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .about-text p.animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .about-text p:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            border-left-color: var(--accent-color);
+        }
+        
+        .about-text p:first-child {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border-left-color: var(--accent-color);
+            font-weight: 500;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-card);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow-medium);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all var(--transition-fast);
+                border-top: 1px solid rgba(245, 158, 11, 0.2);
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .portfolio-hero-title {
+                font-size: 3rem;
+            }
+            
+            .about-text p {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+        }
+    <style>
+        /* Contact CTA */
+        .contact-cta {
+            padding: 100px 0;
+            background: var(--gradient-secondary);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            font-family: 'Russo One', 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        
+        .btn-primary {
+            background: var(--bg-dark);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+            background: white;
+            color: var(--bg-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/niks.png" alt="Никс - Фотограф">
+                </a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">🏠 Главная</a></li>
+                <li><a href="portfolio.html" class="nav-link">📸 Портфолио</a></li>
+                <li><a href="about.html" class="nav-link active">👤 Обо мне</a></li>
+                <li><a href="blog.html" class="nav-link">📝 Блог</a></li>
+                <li><a href="contact.html" class="nav-link">📞 Контакты</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="portfolio-hero">
+        <div class="portfolio-hero-background"></div>
+        <div class="portfolio-hero-overlay"></div>
+        <div class="portfolio-hero-content">
+            <h1 class="portfolio-hero-title">
+                <span class="portfolio-title-line">Никс</span>
+            </h1>
+            <p class="portfolio-hero-subtitle">Фотограф, который учится видеть прекрасное</p>
+            <p style="font-size: 1.1rem; margin-top: 1rem; font-style: italic;">«Каждый кадр — шаг к совершенству»</p>
+        </div>
+    </section>
+
+
+
+    <!-- About Content -->
+    <section class="about-content">
+        <div class="container">
+            <div class="about-text">
+                <p class="animate-on-scroll">Привет! Меня зовут Артур, и я живу в Калининграде. Мне 16 лет, и я начинающий фотограф, который только начинает свой путь в этом увлекательном искусстве. Фотография для меня — это способ запечатлеть моменты, которые я вижу вокруг себя, и передать свои эмоции через кадры.</p>
+                
+                <p class="animate-on-scroll">После девятого класса я планирую поступить в колледж программирования. Мне всегда интересовали технологии, и я хочу развиваться в этой области. Но одновременно с учёбой я также собираюсь пройти курс по фотографии, чтобы улучшить свои навыки и стать более профессиональным в этом деле. Я верю, что сочетание программирования и фотографии откроет для меня новые горизонты.</p>
+                
+                <p class="animate-on-scroll">В свободное время я люблю гулять по городу, наслаждаясь атмосферой и природой. Это помогает мне находить вдохновение для моих фотографий. Также я увлекаюсь рисованием — это позволяет мне развивать креативность и находить новые идеи для съемки. Музыка — еще одна моя страсть: я слушаю разные жанры и часто пою. Танцы тоже занимают важное место в моей жизни — это отличный способ выразить свои эмоции и расслабиться.</p>
+                
+                <p class="animate-on-scroll">Я также волонтерю в своей школе и городе, помогая людям в сложных ситуациях. Мне важно делать что-то полезное и поддерживать тех, кто нуждается в помощи. Это приносит мне удовлетворение и делает мир намного лучше.</p>
+                
+                <p class="animate-on-scroll">Если у вас есть вопросы или вы хотите пообщаться, не стесняйтесь писать мне! Я всегда рад новым знакомствам и готов помочь, если вам нужна поддержка или совет. Надеюсь, мы сможем поделиться опытом и вдохновением друг с другом!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Давайте знакомиться!</h2>
+                <p>Расскажите мне о своей идее, и мы создадим что-то особенное</p>
+                <a href="contact.html" class="btn btn-primary">Связаться со мной</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>НИКС</h3>
+                    <p>Профессиональный фотограф</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="portfolio.html">Портфолио</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="about.html">Обо мне</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Email: niksfotograf@gmail.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные сети</h4>
+                    <div class="social-links">
+                        <a href="t.me/objektivniksa" class="social-link">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+        }
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+    <script src="global-effects.js"></script>
+</body>
+</html>

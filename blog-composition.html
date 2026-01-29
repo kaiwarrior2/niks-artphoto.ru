@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Основы композиции — Никс Фотограф</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="effects.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: #18181b; color: #f4f4f5; line-height: 1.6; }
+        
+        /* Navigation */
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(24, 24, 27, 0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 0; border-bottom: 1px solid rgba(245, 158, 11, 0.1); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: center; align-items: center; }
+        .nav-logo {
+            margin-right: 50px;
+        }
+        
+        .nav-logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .nav-logo img {
+            height: 80px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-logo:hover img {
+            transform: scale(1.1);
+        }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-link { text-decoration: none; color: #a1a1aa; font-weight: 500; position: relative; transition: color 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%); transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover, .nav-link.active { color: #e4e4e7; }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
+        .hamburger span { width: 25px; height: 3px; background: #e4e4e7; transition: all 0.3s ease; }
+        
+        .article-container { max-width: 900px; margin: 0 auto; padding: 120px 20px 60px; }
+        .article-header { margin-bottom: 3rem; text-align: center; padding: 2rem; background: linear-gradient(135deg, #27272a 0%, #1f1f23 100%); border-radius: 20px; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .article-title { font-size: 3.5rem; color: #f59e0b; margin-bottom: 1rem; font-family: 'Playfair Display', serif; background: linear-gradient(45deg, #f59e0b, #fb923c, #f97316); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 3s ease-in-out infinite; }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .article-date { color: #a1a1aa; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 8px 16px; background: rgba(245, 158, 11, 0.1); border-radius: 20px; width: fit-content; margin: 0 auto; }
+        .article-date::before { content: '📅'; font-size: 1rem; }
+        .back-link { display: inline-block; margin-bottom: 2rem; color: #fb923c; text-decoration: none; padding: 12px 24px; background: linear-gradient(135deg, rgba(251, 146, 60, 0.1), rgba(245, 158, 11, 0.1)); border-radius: 25px; transition: all 0.3s ease; border: 1px solid rgba(251, 146, 60, 0.2); font-weight: 500; }
+        .back-link:hover { background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(245, 158, 11, 0.2)); transform: translateX(-5px); border-color: rgba(251, 146, 60, 0.4); }
+        .article-content { line-height: 1.8; }
+        .article-content p { margin-bottom: 2rem; font-size: 1.1rem; padding: 2rem; background: linear-gradient(135deg, #27272a 0%, #1f1f23 100%); border-radius: 15px; border-left: 4px solid #f59e0b; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .article-content p::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.05), transparent); transition: left 0.6s ease; }
+        .article-content p:hover::before { left: 100%; }
+        .article-content p:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2); border-left-color: #fb923c; }
+        .article-content h2 { color: #fb923c; margin: 3rem 0 1.5rem; font-size: 2rem; font-family: 'Playfair Display', serif; text-align: center; position: relative; }
+        .article-content h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(135deg, #f59e0b, #fb923c); border-radius: 2px; }
+        .article-content ul { margin: 2rem 0; padding: 2rem; background: linear-gradient(135deg, #27272a 0%, #1f1f23 100%); border-radius: 15px; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .article-content li { margin-bottom: 1rem; color: rgba(244, 244, 245, 0.9); padding-left: 1rem; position: relative; }
+        .article-content li::before { content: '▶'; position: absolute; left: 0; color: #f59e0b; font-size: 0.8rem; }
+        
+        .telegram-link, .tiktok-link { display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%); color: white; padding: 15px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; margin: 1rem 1rem 1rem 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); }
+        .telegram-link:hover, .tiktok-link:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5); }
+        
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-menu { position: fixed; top: 100%; left: 0; width: 100%; background: #27272a; flex-direction: column; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); transform: translateY(-100%); opacity: 0; visibility: hidden; transition: all 0.3s ease; border-top: 1px solid rgba(245, 158, 11, 0.2); }
+            .nav-menu.active { transform: translateY(0); opacity: 1; visibility: visible; }
+            .article-title { font-size: 2.5rem; }
+            .article-content p { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/niks.png" alt="Никс - Фотограф">
+                </a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">🏠 Главная</a></li>
+                <li><a href="portfolio.html" class="nav-link">📸 Портфолио</a></li>
+                <li><a href="about.html" class="nav-link">👤 Обо мне</a></li>
+                <li><a href="blog.html" class="nav-link active">📝 Блог</a></li>
+                <li><a href="contact.html" class="nav-link">📞 Контакты</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="article-container">
+        <a href="blog.html" class="back-link">← Назад к блогу</a>
+        
+        <div class="article-header animate-on-scroll">
+            <h1 class="article-title">Основы композиции в фотографии</h1>
+            <div class="article-date">28 декабря 2025</div>
+        </div>
+        
+        <div class="article-content animate-on-scroll">
+            <h2>Мой телеграмм-канал</h2>
+            <p>У меня есть тг-канал, где я регулярно делюсь своими фотографиями и экспериментами с композицией. Это место, где я показываю не только готовые работы, но и процесс создания кадров.</p>
+            
+            <a href="https://t.me/objektivniksa" class="telegram-link" target="_blank" rel="noopener noreferrer">📱 Подписаться на канал</a>
+            <a href="https://www.tiktok.com/@niks_fotograf230?_r=1&_t=ZM-92bVvjWRJxk" class="tiktok-link" target="_blank" rel="noopener noreferrer">📱 Тик-ток</a>
+
+            <h2>Что вы найдете в канале</h2>
+            <p>В моем канале я публикую:</p>
+            <p>• Свежие фотографии с улиц города<br>
+            • Портретные работы и эксперименты<br>
+            • Разборы композиции интересных кадров<br>
+            • Советы по работе с естественным светом</p>
+
+            <h2>Работа с контрастами</h2>
+            <p>Особое внимание я уделяю контрастам — не только световым, но и смысловым. Современный город дает множество возможностей для создания таких контрастов: старое и новое, статичное и динамичное, человек и архитектура.</p>
+            
+            <p>В телеграмм-канале я регулярно публикую серии фотографий, объединенных общей темой контрастов, с комментариями о том, как я искал и создавал эти кадры.</p>
+
+            <h2>Обратная связь и общение</h2>
+            <p>Канал — это не только место для публикации моих работ, но и площадка для общения с единомышленниками. Я всегда рад обратной связи, вопросам и предложениям от подписчиков.</p>
+            
+            <p>Часто именно комментарии и вопросы подписчиков вдохновляют меня на новые эксперименты и помогают взглянуть на свои работы под другим углом.</p>
+
+            <p>Присоединяйтесь к моему каналу, чтобы следить за моими экспериментами и, возможно, найти вдохновение для собственного творчества!</p>
+            
+            <a href="https://t.me/objektivniksa" class="telegram-link" target="_blank">📱 Перейти в телеграмм-канал</a>
+            <a href="https://www.tiktok.com/@niks_fotograf230?_r=1&_t=ZM-92bVvjWRJxk" class="tiktok-link" target="_blank">📱 Перейти в Тик-ток</a>
+        </div>
+    </div>
+    
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+        }
+    </script>
+    <script src="global-effects.js"></script>
+</body>
+</html>

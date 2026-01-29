@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canon EOS 600D: Выбор карты памяти — Никс Фотограф</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/fonts.css">
+    <link rel="stylesheet" href="effects.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: #18181b; color: #f4f4f5; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; padding: 120px 20px 60px; }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(24, 24, 27, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            margin-right: 50px;
+        }
+        
+        .nav-logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .nav-logo img {
+            height: 80px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-logo:hover img {
+            transform: scale(1.1);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #a1a1aa;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #e4e4e7;
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #e4e4e7;
+            transition: all 0.3s ease;
+        }
+        
+        /* Article Styles */
+        .article-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #27272a 0%, #1f1f23 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        
+        .article-title {
+            font-family: 'Russo One', 'Playfair Display', Georgia, serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #f59e0b, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .article-date {
+            color: #a1a1aa;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 8px 16px;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 20px;
+            width: fit-content;
+            margin: 0 auto;
+        }
+        
+        .article-date::before {
+            content: '📅';
+        }
+        
+        .article-content {
+            background: linear-gradient(135deg, #27272a 0%, #1f1f23 100%);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .camera-image {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .camera-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s ease;
+        }
+        
+        .camera-image img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
+        }
+        
+        .article-content h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: #f59e0b;
+        }
+        
+        .article-content h3 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+            color: #fb923c;
+        }
+        
+        .article-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: rgba(244, 244, 245, 0.9);
+            line-height: 1.7;
+        }
+        
+        .warning-box {
+            background: rgba(251, 146, 60, 0.1);
+            border: 2px solid #fb923c;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .warning-box h3 {
+            color: #fb923c;
+            margin-bottom: 1rem;
+        }
+        
+        .recommendations {
+            background: #1f1f23;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .memory-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .memory-list li {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 10px;
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .memory-list li::before {
+            position: absolute;
+            left: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .recommended {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+        }
+        
+        .recommended::before {
+            content: '✓';
+            color: #22c55e;
+        }
+        
+        .acceptable {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .acceptable::before {
+            content: '⚠';
+            color: #f59e0b;
+        }
+        
+        .not-recommended {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+        }
+        
+        .not-recommended::before {
+            content: '✗';
+            color: #ef4444;
+        }
+        
+        .tip-box {
+            background: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #27272a;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                border-top: 1px solid rgba(245, 158, 11, 0.2);
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/niks.png" alt="Никс - Фотограф">
+                </a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">🏠 Главная</a></li>
+                <li><a href="portfolio.html" class="nav-link">📸 Портфолио</a></li>
+                <li><a href="about.html" class="nav-link">👤 Обо мне</a></li>
+                <li><a href="blog.html" class="nav-link active">📝 Блог</a></li>
+                <li><a href="contact.html" class="nav-link">📞 Контакты</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <article>
+            <header class="article-header animate-on-scroll">
+                <h1 class="article-title">Canon EOS 600D: Выбор карты памяти</h1>
+                <div class="article-date">20 января 2025</div>
+            </header>
+
+            <div class="article-content animate-on-scroll">
+                <div class="camera-image">
+                    <img src="media/portfolio/600D2.jpg" alt="Canon EOS 600D">
+                </div>
+
+                <p>При покупке фотоаппарата важно учесть не только сам аппарат, но и сопутствующее оборудование — в частности, карту памяти. После приобретения фотоаппарата обязательно купите карту microSD объёмом <strong>64 ГБ</strong>.</p>
+
+                <h2>Почему именно 64 ГБ?</h2>
+                <p>На собственном опыте я убедился, что карты большей ёмкости могут вызвать проблемы!! :(</p>
+
+                <div class="warning-box">
+                    <h3>Мой опыт с картой 512 ГБ</h3>
+                    <p>К сожалению я приобрёл карту на 512 ГБ: поначалу фотоаппарат работал с ней нормально, но спустя некоторое время при включении экран перестал загораться — сделать снимок стало невозможно.</p>
+                    <p>Причина неполадки оказалась в самой карте памяти. После замены на карту объёмом 128 ГБ фотоаппарат заработал стабильно. Также безупречно функционирует и карта на 64 ГБ.</p>
+                </div>
+
+                <div class="recommendations">
+                    <h2>Рекомендации по объёму карт памяти:</h2>
+                    <ul class="memory-list">
+                        <li class="recommended"><strong>64 ГБ</strong> — оптимальный и гарантированно рабочий вариант</li>
+                        <li class="acceptable"><strong>128 ГБ</strong> — тоже можно использовать, работает стабильно</li>
+                        <li class="not-recommended"><strong>512 ГБ</strong> — не рекомендуется, возможны сбои в работе фотоаппарата</li>
+                    </ul>
+                </div>
+
+                <div class="tip-box">
+                    <p><strong>Совет:</strong> Перед покупкой всегда проверяйте, какие объёмы карт памяти поддерживает ваша модель фотоаппарата — это поможет избежать неприятных ситуаций.</p>
+                </div>
+
+                <a href="blog.html" class="back-link">← Вернуться к блогу</a>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+        }
+    </script>
+    <script src="global-effects.js"></script>
+</body>
+</html>
