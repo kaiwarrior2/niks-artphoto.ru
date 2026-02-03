@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            /* Темное пространство без использования слова ф*н */
+            background: radial-gradient(circle at 60% 40%, #2e1d38 0%, #000000 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .motion-box {
+            position: relative;
+            /* Анимация движения: Слева -> Центр -> Рывок вправо */
+            animation: travel 4s infinite linear;
+        }
+
+        .bubble-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Анимация ПОСТОЯННОГО сжатия во время движения */
+            animation: constantSquish 4s infinite linear;
+        }
+
+        .round-head {
+            width: 110px;
+            height: 110px;
+            background: white;
+            border-radius: 50%; /* Базовая круглая форма */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .avatar {
+            width: 95px;
+            height: 95px;
+            background: #444;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            /* Заглушка под фото */
+            background-image: linear-gradient(45deg, #333, #666);
+        }
+
+        .tail-triangle {
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 18px solid white;
+            margin-top: -3px;
+        }
+
+        .km-badge {
+            position: absolute;
+            right: -45px;
+            background: #000;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-family: sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* 1. Анимация пути */
+        @keyframes travel {
+            0% { transform: translateX(-200px); opacity: 0; }
+            10% { transform: translateX(-150px); opacity: 1; }
+            40% { transform: translateX(0); } /* Остановка в центре */
+            60% { transform: translateX(0); } 
+            90% { transform: translateX(300px); } /* Конец пути */
+            100% { transform: translateX(300px); opacity: 0; }
+        }
+
+        /* 2. Анимация ПОСТОЯННОГО сжатия */
+        @keyframes constantSquish {
+            /* До 60% объект идеально круглый */
+            0%, 59% { 
+                transform: scaleX(1); 
+            }
+            /* С 60% до 90% (пока идет движение) он СЖАТ ПОСТОЯННО */
+            60%, 89% { 
+                transform: scaleX(0.75); 
+            }
+            /* При остановке возвращается в круг */
+            90%, 100% { 
+                transform: scaleX(1); 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="motion-box">
+        <div class="bubble-wrap">
+            <div class="round-head">
+                <div class="avatar"></div>
+                <div class="km-badge">4 км/ч</div>
+            </div>
+            <div class="tail-triangle"></div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -9,8 +9,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="fonts/fonts.css">
     <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="water-effects.css">
     <script src="global-effects.js"></script>
     <style>
+        /* Эффекты капель воды */
+        .water-drop {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background-image: url('капли/к21.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: waterDrop 3s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        @keyframes waterDrop {
+            0% { transform: translateY(-10px) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+        }
+        
+        .water-ripple {
+            position: fixed;
+            border: 2px solid rgba(173, 216, 230, 0.6);
+            border-radius: 50%;
+            animation: rippleEffect 1.5s ease-out forwards;
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        @keyframes rippleEffect {
+            0% { width: 0; height: 0; opacity: 1; }
+            100% { width: 60px; height: 60px; opacity: 0; }
+        }
+        
         /* Reset and Base Styles */
         * {
             margin: 0;
@@ -899,6 +934,53 @@
     </footer>
 
     <script>
+        // Система капель воды
+        class WaterDropSystem {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                this.createWaterDrops();
+                this.addClickEffects();
+            }
+            
+            createWaterDrops() {
+                setInterval(() => {
+                    this.createDrop();
+                }, 500);
+            }
+            
+            createDrop() {
+                const drop = document.createElement('div');
+                drop.className = 'water-drop';
+                drop.style.left = Math.random() * window.innerWidth + 'px';
+                drop.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(drop);
+                setTimeout(() => drop.remove(), 5000);
+            }
+            
+            addClickEffects() {
+                document.addEventListener('click', (e) => {
+                    this.createRipple(e.clientX, e.clientY);
+                });
+            }
+            
+            createRipple(x, y) {
+                const ripple = document.createElement('div');
+                ripple.className = 'water-ripple';
+                ripple.style.left = (x - 30) + 'px';
+                ripple.style.top = (y - 30) + 'px';
+                document.body.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 1500);
+            }
+        }
+        
+        // Инициализация водных эффектов
+        document.addEventListener('DOMContentLoaded', () => {
+            new WaterDropSystem();
+        });
+        
         // Mobile menu toggle
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
@@ -981,5 +1063,6 @@
     
     <!-- Advanced Effects Script -->
     <script src="effects.js"></script>
+    <script src="water-effects.js"></script>
 </body>
 </html>
