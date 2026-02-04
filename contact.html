@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="fonts/fonts.css">
     <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="navigation.css">
     <style>
         * {
             margin: 0;
@@ -394,30 +395,6 @@
         
         /* Responsive */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-            
-            .nav-menu {
-                position: fixed;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--bg-card);
-                flex-direction: column;
-                padding: 2rem;
-                box-shadow: var(--shadow-medium);
-                transform: translateY(-100%);
-                opacity: 0;
-                visibility: hidden;
-                transition: all var(--transition-fast);
-            }
-            
-            .nav-menu.active {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-            }
             
             .contact-hero h1 {
                 font-size: 2.5rem;
@@ -570,16 +547,7 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        
-        if (hamburger) {
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-            });
-        }
+
         
         // Form submission
         document.querySelector('form').addEventListener('submit', function(e) {
@@ -587,6 +555,8 @@
             alert('Спасибо за сообщение! Я свяжусь с вами в ближайшее время.');
         });
     </script>
+    <!-- Navigation Script -->
+    <script src="navigation.js"></script>
     <script src="global-effects.js"></script>
 </body>
 </html>

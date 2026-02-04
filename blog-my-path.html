@@ -6,6 +6,7 @@
     <title>Мой путь в фотографии — Никс Фотограф</title>
     <link rel="stylesheet" href="/static/main.css">
     <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="navigation.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Nunito', 'Inter', sans-serif; background: #18181b; color: #f4f4f5; line-height: 1.6; }
@@ -36,7 +37,7 @@
         .nav-link { text-decoration: none; color: #a1a1aa; font-weight: 500; transition: color 0.3s; }
         .nav-link:hover, .nav-link.active { color: #f59e0b; }
         .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
-        .hamburger span { width: 25px; height: 3px; background: #f59e0b; }
+        .hamburger span { width: 25px; height: 3px; background: #f59e0b; transition: all 0.3s ease; }
         
         .article-container { max-width: 800px; margin: 0 auto; padding: 120px 20px 60px; }
         .article-header { margin-bottom: 3rem; text-align: center; }
@@ -96,5 +97,7 @@
         </div>
     </div>
 </body>
-<script src="global-effects.js"></script>
+    <!-- Navigation Script -->
+    <script src="navigation.js"></script>
+    <script src="global-effects.js"></script>
 </html>
