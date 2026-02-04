@@ -1,0 +1,42 @@
+{
+  "name": "niks-photography-website",
+  "version": "2.0.0",
+  "description": "Современный сайт-портфолио фотографа с PWA функциональностью",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -p 8000",
+    "dev": "npx serve . -p 3000 --live",
+    "build": "echo 'Static site - no build needed'",
+    "lighthouse": "lighthouse http://localhost:8000 --view",
+    "test": "echo 'No tests specified'",
+    "deploy": "gh-pages -d ."
+  },
+  "keywords": [
+    "photography",
+    "portfolio",
+    "pwa",
+    "responsive",
+    "modern",
+    "website"
+  ],
+  "author": "Никс <niksfotograf@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://niks-artphoto.ru",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/niks-photography-website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/niks-photography-website/issues"
+  },
+  "devDependencies": {
+    "serve": "^14.0.0",
+    "lighthouse": "^10.0.0",
+    "gh-pages": "^5.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
