@@ -6,10 +6,12 @@
     <title>Никс — Фотограф | Искусство в каждом кадре</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="fonts/fonts.css">
     <link rel="stylesheet" href="effects.css">
     <link rel="stylesheet" href="particle-effects.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="mobile-utils.css">
     <style>
         /* Reset and Base Styles */
         * {
@@ -555,11 +557,23 @@
             animation-delay: 0.4s, 1s;
         }
         
-        .hero-subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
+        .typewriter-line {
             opacity: 0;
-            animation: fadeIn 1s ease-out 0.8s forwards;
+            animation: fadeInType 1s ease-out forwards;
+            margin-bottom: 1rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            font-size: 1.5rem;
+        }
+        
+        .typewriter-line:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes fadeInType {
+            to {
+                opacity: 1;
+            }
         }
         
         .hero-buttons {
@@ -1092,7 +1106,59 @@
             }
         }
         
-@media (max-width: 768px) {
+/* Адаптивные стили */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .nav-container {
+                padding: 0 30px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .recommendation-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .nav-container {
+                padding: 0 20px;
+                justify-content: space-between;
+            }
+            
+            .nav-logo {
+                margin-right: 0;
+            }
+            
+            .nav-logo img {
+                height: 60px;
+            }
+            
             .geo-indicator {
                 top: 80px;
                 right: 20px;
@@ -1100,69 +1166,222 @@
             
             .hamburger {
                 display: flex;
+                z-index: 1001;
             }
             
             .nav-menu {
                 position: fixed;
-                top: 100%;
+                top: 0;
                 left: 0;
                 width: 100%;
-                background: var(--bg-card);
+                height: 100vh;
+                background: rgba(24, 24, 27, 0.98);
+                backdrop-filter: blur(20px);
                 flex-direction: column;
+                justify-content: center;
+                align-items: center;
                 padding: 2rem;
                 box-shadow: var(--shadow-medium);
-                transform: translateY(-100%);
+                transform: translateX(100%);
                 opacity: 0;
                 visibility: hidden;
-                transition: all var(--transition-fast);
-                border-top: 1px solid rgba(245, 158, 11, 0.2);
+                transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                border: none;
+                gap: 3rem;
             }
             
             .nav-menu.active {
-                transform: translateY(0);
+                transform: translateX(0);
                 opacity: 1;
                 visibility: visible;
             }
             
+            .nav-link {
+                font-size: 1.5rem;
+                padding: 15px 20px;
+            }
+            
+            .hero {
+                padding: 0 20px;
+            }
+            
             .hero-title {
-                font-size: 3rem;
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
             }
             
             .section-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+                text-align: center;
+            }
+            
+            .about-preview,
+            .services-preview,
+            .camera-recommendation,
+            .contact-cta {
+                padding: 60px 0;
             }
             
             .about-grid {
-                grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            .image-placeholder {
+                height: 300px;
             }
             
             .stats {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 1.5rem;
+                margin: 2rem 0;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
             }
             
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 1rem;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
             }
             
             .services-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .service-card {
+                padding: 2rem 1.5rem;
             }
             
             .recommendation-content {
-                grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+            
+            .recommendation-text h2 {
+                font-size: 2rem;
+            }
+            
+            .recommendation-image {
+                height: 200px;
+            }
+            
+            .camera-icon {
+                width: 200px;
+                height: 200px;
+                bottom: -200px;
+            }
+            
+            .cta-content h2 {
+                font-size: 2.2rem;
             }
             
             .footer-content {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 2rem;
             }
             
             .social-links {
                 justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .service-card {
+                padding: 1.5rem 1rem;
+            }
+            
+            .service-icon {
+                font-size: 2.5rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+            }
+            
+            .nav-link {
+                font-size: 1.2rem;
+            }
+            
+            .recommendation-text h2 {
+                font-size: 1.8rem;
+            }
+            
+            .cta-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .camera-icon {
+                width: 150px;
+                height: 150px;
+                bottom: -150px;
+            }
+        }
+        
+        /* Оптимизация для мобильных устройств */
+        @media (max-width: 768px) {
+            * {
+                will-change: auto !important;
+            }
+            
+            .hero-background::before,
+            .hero-background::after,
+            .particles,
+            #particle-canvas {
+                display: none !important;
+            }
+            
+            .camera-icon {
+                animation: none !important;
+            }
+            
+            .btn::before,
+            .service-card::before {
+                display: none !important;
+            }
+            
+            .typewriter-line {
+                animation: none !important;
+                border: none !important;
+                white-space: normal !important;
+                overflow: visible !important;
+                opacity: 1 !important;
             }
         }
     </style>
@@ -1204,7 +1423,9 @@
                     <span class="title-line">Тут надо уметь:</span>
                     <span class="title-line highlight">Действовать</span>
                 </h1>
-                <p class="hero-subtitle typewriter">Каждый кадр — шаг к совершенству. Ищу свой стиль, экспериментирую с композицией и настроением.</p>
+                <p class="hero-subtitle typewriter-line" data-text="Каждый кадр — шаг к совершенству."></p> 
+                <p class="hero-subtitle typewriter-line" data-text="Ищу свой стиль, экспериментирую с композицией и настроением."></p>
+
                 <div class="hero-buttons">
                     <a href="portfolio.html" class="btn btn-primary btn-magnetic pulse">Посмотреть работы</a>
                     <a href="contact.html" class="btn btn-secondary btn-liquid">Связаться</a>
@@ -1238,7 +1459,10 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-image animate-fade-left">
-                    <img src="media/portfolio/photo_2025-12-29_08-46-03.jpg" alt="Никс фотограф" style="width: 100%; height: 400px; object-fit: cover; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);">
+                    <img src="media/portfolio/photo_2025-12-29_08-46-03.jpg" 
+                         alt="Никс фотограф" 
+                         loading="lazy"
+                         style="width: 100%; height: 400px; object-fit: cover; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);">
                 </div>
                 <div class="about-content">
                     <h2 class="section-title">Никс — фотограф</h2>
@@ -1349,26 +1573,87 @@
     </footer>
 
     <script>
+        // Оптимизация для мобильных устройств
+        const isMobile = window.innerWidth <= 768;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        // Throttle функция для оптимизации событий
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+        
+        // Отключаем тяжелые анимации на мобильных
+        if (isMobile || prefersReducedMotion) {
+            document.documentElement.style.setProperty('--transition-fast', '0.1s ease');
+            document.documentElement.style.setProperty('--transition-medium', '0.2s ease');
+        }
         // Mobile menu toggle
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
+        const body = document.body;
         
         if (hamburger) {
             hamburger.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
                 hamburger.classList.toggle('active');
+                
+                // Предотвращаем скролл при открытом меню
+                if (navMenu.classList.contains('active')) {
+                    body.style.overflow = 'hidden';
+                } else {
+                    body.style.overflow = '';
+                }
+            });
+            
+            // Закрываем меню при клике на ссылку
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    body.style.overflow = '';
+                });
+            });
+            
+            // Закрываем меню при клике вне его
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    body.style.overflow = '';
+                }
+            });
+            
+            // Закрываем меню при изменении размера экрана
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    body.style.overflow = '';
+                }
             });
         }
         
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
+        // Navbar scroll effect (оптимизированный)
+        const handleScroll = throttle(() => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
-        });
+        }, 16); // 60fps
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
         
         // Scroll animations
         const observerOptions = {
@@ -1459,13 +1744,10 @@
                 });
             });
             
-            // Typing effect for hero title
-            const titleLines = document.querySelectorAll('.title-line');
-            titleLines.forEach((line, index) => {
-                setTimeout(() => {
-                    line.style.opacity = '1';
-                    line.style.animation = 'slideInLeft 0.8s ease-out forwards';
-                }, index * 300);
+            // Простое появление текста
+            const typewriterElements = document.querySelectorAll('.typewriter-line');
+            typewriterElements.forEach(element => {
+                element.textContent = element.getAttribute('data-text');
             });
         });
         
@@ -1555,9 +1837,11 @@
             setTimeout(animateCameraIcon, 1000); // Start after 1 second
         });
         
-        // Initialize particles and magnetic effects
-        createParticles();
-        addMagneticEffect();
+        // Инициализация эффектов (только для десктопа)
+        if (!isMobile && !prefersReducedMotion) {
+            createParticles();
+            addMagneticEffect();
+        }
     </script>
     
     <!-- Advanced Effects Script -->
