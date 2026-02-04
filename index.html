@@ -1354,35 +1354,15 @@
             }
         }
         
-        /* Оптимизация для мобильных устройств */
+        /* Camera Icon Animation - упрощенная для мобильных */
         @media (max-width: 768px) {
-            * {
-                will-change: auto !important;
-            }
-            
-            .hero-background::before,
-            .hero-background::after,
-            .particles,
-            #particle-canvas {
-                display: none !important;
-            }
-            
             .camera-icon {
-                animation: cameraMove 8s linear infinite !important;
-                transform: translateZ(0) !important;
+                animation: simpleCameraMove 4s ease-in-out infinite !important;
             }
             
-            .btn::before,
-            .service-card::before {
-                display: none !important;
-            }
-            
-            .typewriter-line {
-                animation: none !important;
-                border: none !important;
-                white-space: normal !important;
-                overflow: visible !important;
-                opacity: 1 !important;
+            @keyframes simpleCameraMove {
+                0%, 100% { transform: translateX(0) scale(1); }
+                50% { transform: translateX(50px) scale(1.1); }
             }
         }
     </style>
