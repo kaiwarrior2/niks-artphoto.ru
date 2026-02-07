@@ -1,95 +1,129 @@
-// Likes Database System
-class LikesDB {
+// Система лайков для всех пользователей
+class LikesSystem {
     constructor() {
         this.storageKey = 'portfolio_likes';
+        this.userLikesKey = 'user_likes';
         this.init();
     }
-    
+
     init() {
-        if (!localStorage.getItem(this.storageKey)) {
-            localStorage.setItem(this.storageKey, JSON.stringify({}));
-        }
         this.loadLikes();
+        this.updateAllCounters();
     }
-    
-    getData() {
-        return JSON.parse(localStorage.getItem(this.storageKey) || '{}');
+
+    // Получить все лайки
+    getLikes() {
+        const data = localStorage.getItem(this.storageKey);
+        return data ? JSON.parse(data) : {};
     }
-    
-    saveData(data) {
-        localStorage.setItem(this.storageKey, JSON.stringify(data));
+
+    // Получить лайки пользователя
+    getUserLikes() {
+        const data = localStorage.getItem(this.userLikesKey);
+        return data ? JSON.parse(data) : [];
     }
-    
-    getLikes(imageId) {
-        const data = this.getData();
-        return data[imageId] || { count: 0, liked: false };
+
+    // Сохранить лайки
+    saveLikes(likes) {
+        localStorage.setItem(this.storageKey, JSON.stringify(likes));
     }
-    
-    setLike(imageId, liked) {
-        const data = this.getData();
-        if (!data[imageId]) {
-            data[imageId] = { count: 0, liked: false };
+
+    // Сохранить лайки пользователя
+    saveUserLikes(userLikes) {
+        localStorage.setItem(this.userLikesKey, JSON.stringify(userLikes));
+    }
+
+    // Получить ID фото
+    getPhotoId(element) {
+        const img = element.closest('.portfolio-item').querySelector('.portfolio-image');
+        return img.src.split('/').pop();
+    }
+
+    // Переключить лайк
+    toggleLike(btn) {
+        const photoId = this.getPhotoId(btn);
+        const likes = this.getLikes();
+        const userLikes = this.getUserLikes();
+        const img = btn.querySelector('img');
+        
+        const isLiked = userLikes.includes(photoId);
+        
+        if (isLiked) {
+            // Убрать лайк
+            likes[photoId] = Math.max(0, (likes[photoId] || 0) - 1);
+            const index = userLikes.indexOf(photoId);
+            userLikes.splice(index, 1);
+            img.src = 'images/like-off.png';
+            btn.classList.remove('liked');
+        } else {
+            // Добавить лайк
+            likes[photoId] = (likes[photoId] || 0) + 1;
+            userLikes.push(photoId);
+            img.src = 'images/like.png';
+            btn.classList.add('liked');
         }
         
-        if (liked && !data[imageId].liked) {
-            data[imageId].count++;
-            data[imageId].liked = true;
-        } else if (!liked && data[imageId].liked) {
-            data[imageId].count = Math.max(0, data[imageId].count - 1);
-            data[imageId].liked = false;
-        }
+        this.saveLikes(likes);
+        this.saveUserLikes(userLikes);
+        this.updateCounter(btn, likes[photoId]);
         
-        this.saveData(data);
-        return data[imageId];
+        // Анимация
+        btn.classList.add('liked-animation');
+        setTimeout(() => btn.classList.remove('liked-animation'), 500);
     }
-    
-    loadLikes() {
-        document.querySelectorAll('.portfolio-item').forEach((item, index) => {
-            const imageId = `image_${index}`;
-            const likeData = this.getLikes(imageId);
-            
+
+    // Обновить счетчик
+    updateCounter(btn, count) {
+        let counter = btn.parentElement.querySelector('.like-counter');
+        if (!counter) {
+            counter = document.createElement('div');
+            counter.className = 'like-counter';
+            btn.parentElement.appendChild(counter);
+        }
+        counter.textContent = count || 0;
+        counter.style.display = 'block';
+    }
+
+    // Обновить все счетчики
+    updateAllCounters() {
+        const likes = this.getLikes();
+        const userLikes = this.getUserLikes();
+        
+        document.querySelectorAll('.portfolio-item').forEach(item => {
             const btn = item.querySelector('.like-btn');
             const img = btn.querySelector('img');
+            const photoId = this.getPhotoId(btn);
+            const count = likes[photoId] || 0;
             
-            let counter = item.querySelector('.like-counter');
-            if (!counter) {
-                counter = document.createElement('span');
-                counter.className = 'like-counter';
-                item.insertBefore(counter, btn);
-            }
-            
-            counter.textContent = likeData.count;
-            
-            if (likeData.liked) {
-                btn.classList.add('liked');
+            // Установить состояние кнопки
+            if (userLikes.includes(photoId)) {
                 img.src = 'images/like.png';
+                btn.classList.add('liked');
             }
             
-            btn.setAttribute('data-image-id', imageId);
+            // Обновить счетчик
+            this.updateCounter(btn, count);
         });
     }
-}
 
-const likesDB = new LikesDB();
-
-function toggleLike(btn) {
-    const imageId = btn.getAttribute('data-image-id');
-    const item = btn.closest('.portfolio-item');
-    const img = btn.querySelector('img');
-    const isLiked = btn.classList.contains('liked');
-    
-    const newLikeData = likesDB.setLike(imageId, !isLiked);
-    
-    const counter = item.querySelector('.like-counter');
-    counter.textContent = newLikeData.count;
-    
-    if (newLikeData.liked) {
-        img.src = 'images/like.png';
-        btn.classList.add('liked');
-        counter.classList.add('liked-animation');
-        setTimeout(() => counter.classList.remove('liked-animation'), 500);
-    } else {
-        img.src = 'images/like-off.png';
-        btn.classList.remove('liked');
+    // Загрузить лайки
+    loadLikes() {
+        // Инициализация, если данных нет
+        if (!localStorage.getItem(this.storageKey)) {
+            this.saveLikes({});
+        }
+        if (!localStorage.getItem(this.userLikesKey)) {
+            this.saveUserLikes([]);
+        }
     }
 }
+
+// Глобальная функция для кнопок
+function toggleLike(btn) {
+    window.likesSystem.toggleLike(btn);
+}
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', () => {
+    window.likesSystem = new LikesSystem();
+});
