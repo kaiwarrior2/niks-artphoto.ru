@@ -459,6 +459,24 @@
             50% { transform: scale(1.3); }
         }
         
+        .like-counter {
+            position: absolute;
+            top: 60px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .liked-animation {
+            animation: likeAnimation 0.5s ease;
+        }
+        
         .portfolio-item:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
@@ -1027,20 +1045,10 @@
         </div>
     </footer>
 
+    <!-- Likes System -->
+    <script src="likes-system.js"></script>
+    
     <script>
-        // Like toggle function
-        function toggleLike(btn) {
-            const img = btn.querySelector('img');
-            const isLiked = btn.classList.contains('liked');
-            
-            if (isLiked) {
-                img.src = 'images/like-off.png';
-                btn.classList.remove('liked');
-            } else {
-                img.src = 'images/like.png';
-                btn.classList.add('liked');
-            }
-        }
         
         // Mobile menu
         const hamburger = document.getElementById('hamburger');
