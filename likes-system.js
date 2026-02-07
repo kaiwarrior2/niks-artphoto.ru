@@ -81,6 +81,7 @@ class LikesSystem {
             btn.parentElement.appendChild(counter);
         }
         counter.textContent = count || 0;
+        counter.style.display = 'block';
     }
 
     // Обновить все счетчики
