@@ -12,13 +12,13 @@
     --bg-secondary: #ffffff;
     --text-primary: #ffffff;
     --text-secondary: #ffffff;
-    --accent: #f59e0b;
-    --border: rgba(255, 255, 255, 0.1);
+    --accent: #ffffff;
+    --border: rgba(255, 255, 255, 0.3);
 }
 
 body {
-    background: var(--bg-primary);
-    color: var(--text-primary);
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
     transition: background 0.3s, color 0.3s;
 }
 
@@ -50,36 +50,54 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--text-primary);
 }
 
 header, nav, .hero, .services, .stats, .camera-section, footer,
-.portfolio-grid, .about-content, .team-grid, .blog-grid, .contact-form {
-    background: var(--bg-primary);
-    color: var(--text-primary);
+.portfolio-grid, .about-content, .team-grid, .blog-grid, .contact-form,
+.navbar, .portfolio-hero, .portfolio-filters, .portfolio-main,
+.about-preview, .services-preview, .camera-recommendation {
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
 }
 
 .service-card, .stat-card, .camera-card, .portfolio-item, 
-.team-member, .blog-card, .contact-info {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
+.team-member, .blog-card, .contact-info, .filter-btn,
+.portfolio-item .portfolio-info, .about-text p {
+    background: var(--bg-secondary) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-primary) !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--text-primary);
+    color: var(--text-primary) !important;
 }
 
-p, span, a {
-    color: var(--text-secondary);
+p, span, a, .nav-link, .stat-label, .service-card p {
+    color: var(--text-secondary) !important;
 }
 
-a:hover {
-    color: var(--accent);
+a:hover, .nav-link:hover {
+    color: var(--accent) !important;
 }
 
-input, textarea, select {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: 1px solid var(--border);
+input, textarea, select, .contact-method {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.hero-background, .portfolio-hero-background {
+    background: var(--bg-primary) !important;
+}
+
+.hero-overlay, .portfolio-hero-overlay {
+    background: rgba(255, 255, 255, 0) !important;
+}
+
+[data-theme="light"] .hero-overlay,
+[data-theme="light"] .portfolio-hero-overlay {
+    background: rgba(255, 255, 255, 0) !important;
 }
 
 @media (max-width: 768px) {
