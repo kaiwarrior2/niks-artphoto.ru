@@ -21,7 +21,11 @@
                 <div class="form-group">
                     <input type="password" id="password" placeholder="Пароль" required>
                 </div>
-                <button type="submit" class="btn-submit">Зарегистрироваться</button>
+                <button type="button" class="btn-submit" onclick="sendVerificationCode()">Получить код</button>
+                <div class="form-group" id="codeField" style="display:none;">
+                    <input type="text" id="code" placeholder="Код из письма" required>
+                </div>
+                <button type="submit" class="btn-submit" id="registerBtn" style="display:none;">Зарегистрироваться</button>
                 <p class="auth-link">Уже есть аккаунт? <a href="login.html">Войти</a></p>
             </form>
         </div>

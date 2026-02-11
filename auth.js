@@ -11,19 +11,46 @@ if (typeof emailjs !== 'undefined') {
 }
 
 function sendEmail(toEmail, userName, type) {
-    if (typeof emailjs === 'undefined') return;
+    if (typeof emailjs === 'undefined') {
+        console.error('EmailJS не загружен');
+        return;
+    }
+    
+    const code = Math.floor(100000 + Math.random() * 900000);
+    localStorage.setItem('verificationCode', code);
     
     const templateParams = {
-        to_email: toEmail,
-        user_name: userName,
-        message: type === 'register' 
-            ? 'Спасибо за регистрацию на Niks ArtPhoto! Ваш аккаунт успешно создан.'
-            : 'Вы успешно вошли в свой аккаунт на Niks ArtPhoto.'
+        'Электронная почта': toEmail,
+        'пароль': code,
+        'Время': new Date().toLocaleString('ru-RU')
     };
     
+    console.log('Отправка email...', templateParams);
+    
     emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams)
-        .then(() => console.log('Email отправлен'))
-        .catch((err) => console.error('Ошибка отправки:', err));
+        .then((response) => {
+            console.log('Email отправлен!', response);
+            alert('Код отправлен на ' + toEmail);
+        })
+        .catch((err) => {
+            console.error('Ошибка отправки:', err);
+            alert('Ошибка отправки письма: ' + err.text);
+        });
+}
+
+function sendVerificationCode() {
+    const email = document.getElementById('email').value;
+    const name = document.getElementById('name').value;
+    const password = document.getElementById('password').value;
+    
+    if (!email || !name || !password) {
+        alert('Заполните все поля');
+        return;
+    }
+    
+    sendEmail(email, name, 'register');
+    document.getElementById('codeField').style.display = 'block';
+    document.getElementById('registerBtn').style.display = 'block';
 }
 
 // Simple Auth System
@@ -59,18 +86,26 @@ if (loginForm) {
         e.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
+        const code = document.getElementById('code').value;
         
         const users = JSON.parse(localStorage.getItem('users') || '[]');
         const user = users.find(u => u.email === email && u.password === password);
         
-        if (user) {
-            localStorage.setItem('currentUser', JSON.stringify({name: user.name, email: user.email}));
-            sendEmail(user.email, user.name, 'login');
-            alert('Вход выполнен! Проверьте почту.');
-            window.location.href = 'index.html';
-        } else {
+        if (!user) {
             alert('Неверный email или пароль');
+            return;
         }
+        
+        const savedCode = localStorage.getItem('loginCode_' + email);
+        if (code !== savedCode) {
+            alert('Неверный код подтверждения');
+            return;
+        }
+        
+        localStorage.setItem('currentUser', JSON.stringify({name: user.name, email: user.email}));
+        localStorage.removeItem('loginCode_' + email);
+        alert('Вход выполнен!');
+        window.location.href = 'index.html';
     });
 }
 
@@ -82,6 +117,14 @@ if (registerForm) {
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
+        const code = document.getElementById('code').value;
+        
+        const savedCode = localStorage.getItem('verificationCode');
+        
+        if (code !== savedCode) {
+            alert('Неверный код подтверждения');
+            return;
+        }
         
         const users = JSON.parse(localStorage.getItem('users') || '[]');
         
@@ -92,8 +135,8 @@ if (registerForm) {
         
         users.push({name, email, password});
         localStorage.setItem('users', JSON.stringify(users));
-        sendEmail(email, name, 'register');
-        alert('Регистрация успешна! Проверьте почту.');
+        localStorage.removeItem('verificationCode');
+        alert('Регистрация успешна!');
         window.location.href = 'login.html';
     });
 }
