@@ -5,8 +5,9 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    font-family: 'Inter', sans-serif;
+    background: #18181b;
+    color: #f4f4f5;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -20,17 +21,16 @@ body {
 }
 
 .auth-box {
-    background: rgba(39, 39, 42, 0.95);
+    background: #27272a;
     padding: 40px;
     border-radius: 20px;
-    border: 1px solid rgba(245, 158, 11, 0.2);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(245, 158, 11, 0.2);
 }
 
-h1 {
+.auth-box h1 {
     text-align: center;
     margin-bottom: 30px;
-    font-size: 2rem;
     background: linear-gradient(45deg, #f59e0b, #fb923c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -41,39 +41,37 @@ h1 {
     margin-bottom: 20px;
 }
 
-input {
+.form-group input {
     width: 100%;
-    padding: 15px;
-    background: rgba(24, 24, 27, 0.8);
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    padding: 12px 16px;
+    background: #18181b;
+    border: 2px solid rgba(245, 158, 11, 0.2);
     border-radius: 10px;
     color: #f4f4f5;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+    font-size: 16px;
+    transition: border-color 0.3s;
 }
 
-input:focus {
+.form-group input:focus {
     outline: none;
     border-color: #f59e0b;
-    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
 }
 
 .btn-submit {
     width: 100%;
-    padding: 15px;
+    padding: 14px;
     background: linear-gradient(135deg, #f59e0b, #fb923c);
+    color: white;
     border: none;
     border-radius: 10px;
-    color: white;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s;
 }
 
 .btn-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
 }
 
 .auth-link {
@@ -85,29 +83,8 @@ input:focus {
 .auth-link a {
     color: #f59e0b;
     text-decoration: none;
-    font-weight: 600;
 }
 
 .auth-link a:hover {
     text-decoration: underline;
-}
-
-.error {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #fca5a5;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.success {
-    background: rgba(34, 197, 94, 0.1);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    color: #86efac;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    text-align: center;
 }
