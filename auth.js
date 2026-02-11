@@ -53,6 +53,43 @@ function sendVerificationCode() {
     document.getElementById('registerBtn').style.display = 'block';
 }
 
+function sendLoginCode() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    
+    if (!email || !password) {
+        alert('Введите email и пароль');
+        return;
+    }
+    
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (!user) {
+        alert('Неверный email или пароль');
+        return;
+    }
+    
+    const code = Math.floor(100000 + Math.random() * 900000);
+    localStorage.setItem('loginCode_' + email, code);
+    
+    const templateParams = {
+        'Электронная почта': email,
+        'пароль': code,
+        'Время': new Date().toLocaleString('ru-RU')
+    };
+    
+    emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams)
+        .then(() => {
+            alert('Код отправлен на ' + email);
+            document.getElementById('codeFieldLogin').style.display = 'block';
+            document.getElementById('loginBtn').style.display = 'block';
+        })
+        .catch((err) => {
+            alert('Ошибка отправки: ' + err.text);
+        });
+}
+
 // Simple Auth System
 (function() {
     const authNavItem = document.getElementById('authNavItem');
