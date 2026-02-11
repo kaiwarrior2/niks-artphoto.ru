@@ -3,54 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход в аккаунт | Никс — Фотограф</title>
-    <link rel="stylesheet" href="navigation.css">
+    <title>Вход - Niks ArtPhoto</title>
     <link rel="stylesheet" href="auth.css">
 </head>
 <body>
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">
-                    <img src="images/niks.png" alt="Никс - Фотограф">
-                </a>
-            </div>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html" class="nav-link">🏠 Главная</a></li>
-                <li><a href="portfolio.html" class="nav-link">📸 Портфолио</a></li>
-                <li><a href="about.html" class="nav-link">👤 О нас</a></li>
-                <li><a href="blog.html" class="nav-link">📝 Блог</a></li>
-                <li><a href="contact.html" class="nav-link">📞 Контакты</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
     <div class="auth-container">
-        <div class="auth-card">
-            <h1>Вход в аккаунт</h1>
-            <form id="loginForm" class="auth-form">
+        <div class="auth-box">
+            <h1>Вход</h1>
+            <form id="loginForm">
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" required>
+                    <input type="password" id="password" placeholder="Пароль" required>
                 </div>
                 <button type="submit" class="btn-submit">Войти</button>
-                <div class="form-footer">
-                    <p>Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
-                </div>
+                <p class="auth-link">Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
             </form>
         </div>
     </div>
-
-    <script src="navigation.js"></script>
     <script src="auth.js"></script>
 </body>
 </html>
