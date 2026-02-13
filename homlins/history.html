@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>История создания - Хомлины</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .accessibility-panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 2000;
+        }
+        
+        .accessibility-btn {
+            background: white;
+            border: 2px solid #BB794C;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .accessibility-btn img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .accessibility-menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            border: 2px solid #BB794C;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+        
+        .accessibility-menu.active {
+            display: block;
+        }
+        
+        .accessibility-option {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border: 1px solid #BB794C;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-family: 'EducationalGothic', Arial, sans-serif;
+        }
+        
+        .accessibility-option:hover {
+            background: #DEB308;
+        }
+        
+        body.high-contrast {
+            background: #000 !important;
+            color: #fff !important;
+        }
+        
+        body.high-contrast .nav-btn {
+            background: #000 !important;
+            color: #fff !important;
+            border-color: #fff !important;
+        }
+        
+        body.high-contrast .nav-btn.active {
+            background: #fff !important;
+            color: #000 !important;
+        }
+        
+        body.large-text * {
+            font-size: 1.3em !important;
+        }
+        
+        body.large-text h1 {
+            font-size: 3.5rem !important;
+        }
+        
+        body.color-blind {
+            filter: grayscale(0%);
+        }
+        
+        body.color-blind .nav-btn {
+            background: #fff !important;
+            color: #000 !important;
+            border: 2px solid #000 !important;
+        }
+        
+        body.color-blind .nav-btn.active {
+            background: #000 !important;
+            color: #fff !important;
+        }
+        
+        body.color-blind .innovation-text {
+            color: #555 !important;
+        }
+        
+        body.color-blind .cta-btn {
+            background: #000 !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="accessibility-panel">
+        <button class="accessibility-btn" onclick="toggleAccessibilityMenu()">
+            <img src="icn/glass.png" alt="Режим для слабовидящих">
+        </button>
+        <div class="accessibility-menu" id="accessibilityMenu">
+            <div class="accessibility-option" onclick="toggleHighContrast()">Высокий контраст</div>
+            <div class="accessibility-option" onclick="toggleLargeText()">Крупный шрифт</div>
+            <div class="accessibility-option" onclick="toggleColorBlind()">Режим для дальтоников</div>
+            <div class="accessibility-option" onclick="resetAccessibility()">Сбросить</div>
+        </div>
+    </div>
+
+    <nav class="top-nav">
+        <button class="nav-btn" onclick="window.location.href='history.html'">История</button>
+        <button class="nav-btn" onclick="window.location.href='gallery.html'">Галерея</button>
+        <button class="nav-btn" onclick="window.location.href='index.html'">Главная</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Обучение</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Фанфики</button>
+    </nav>
+    
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <p class="innovation-text">ИСТОРИЯ СОЗДАНИЯ</p>
+                <h1>Случайный рисунок, ставший легендой</h1>
+                <p class="description">Всё началось с обычного телефонного разговора. Калининградская дизайнер и мастер по янтарю Наталия Шевченко, как это часто бывает, машинально рисовала в блокноте. Под её рукой родились два забавных человечка с большими головами, крошечными ручками-ножками и заострёнными ушками. Эти милые существа выглядели так, словно пришли из сказки, и Наталия не смогла о них забыть.</p>
+            </div>
+            <div class="hero-visual">
+                <img src="img/photo_2_2026-01-29_17-57-14.jpg" alt="Калининградские хомлины" class="hero-image">
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-visual">
+                <img src="img/photo_3_2026-01-29_17-57-14.jpg" alt="Хомлины" class="hero-image">
+            </div>
+            <div class="hero-content">
+                <h1>Рождение истории: энергия янтаря и поиск дома</h1>
+                <p class="description">Первоначальной идеей было использовать образы для компьютерной игры о Калининграде. Но чтобы персонажи ожили, им нужна была легенда. Её помог создать супруг Наталии. Так появились хомлины (или домлины) — волшебные существа, живущие сотни лет и черпающие свою силу из солнечного камня, янтаря, который они мастерски обрабатывают. Вся их история — это путь к обретению своего места под солнцем, своего дома в Калининграде, что и подарило им имя.</p>
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>От бумаги к городу: скульптура меняет планы</h1>
+                <p class="description">Судьба хомлинов круто изменилась, когда друг семьи, скульптор Андрей Следков, увидел эти эскизы. Он взял пластилин и слепил первую объёмную фигурку. В тот момент стало ясно: игра может подождать, а эти малыши просто созданы для того, чтобы жить на улицах родного города, дарить радость прохожим и становиться частью городских легенд.</p>
+            </div>
+            <div class="hero-visual">
+                <img src="img/photo_4_2026-01-29_17-57-14.jpg" alt="Хомлины скульптуры" class="hero-image">
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-visual">
+                <img src="img/photo_18_2026-02-08_16-46-58.jpg" alt="Семь хомлинов" class="hero-image">
+            </div>
+            <div class="hero-content">
+                <h1>Семь новых символов города</h1>
+                <p class="description">Первый хомлин, поселившийся в городе, был встречен калининградцами с неожиданным восторгом. Вдохновлённые успехом, Наталия и её команда создали целую сказочную семью. Сегодня по историческому центру Калининграда можно найти семь уникальных мини-скульптур. Каждая из них — это отдельный персонаж со своей биографией, характером и увлечениями. Из забавной задумки хомлины превратились в полноценный культурный феномен и новые, любимые жителями и туристами, символы города. Их история, начавшаяся с нескольких штрихов в блокноте, продолжается на улицах, в фотографиях и улыбках тех, кто их находит.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleAccessibilityMenu() {
+            document.getElementById('accessibilityMenu').classList.toggle('active');
+        }
+        
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
+        }
+        
+        function toggleLargeText() {
+            document.body.classList.toggle('large-text');
+            localStorage.setItem('largeText', document.body.classList.contains('large-text'));
+        }
+        
+        function resetAccessibility() {
+            document.body.classList.remove('high-contrast', 'large-text', 'color-blind');
+            localStorage.removeItem('highContrast');
+            localStorage.removeItem('largeText');
+            localStorage.removeItem('colorBlind');
+        }
+        
+        function toggleColorBlind() {
+            document.body.classList.toggle('color-blind');
+            localStorage.setItem('colorBlind', document.body.classList.contains('color-blind'));
+        }
+        
+        window.onload = function() {
+            if (localStorage.getItem('highContrast') === 'true') {
+                document.body.classList.add('high-contrast');
+            }
+            if (localStorage.getItem('largeText') === 'true') {
+                document.body.classList.add('large-text');
+            }
+            if (localStorage.getItem('colorBlind') === 'true') {
+                document.body.classList.add('color-blind');
+            }
+        }
+    </script>
+</body>
+</html>

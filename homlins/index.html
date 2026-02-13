@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цифровой путеводитель по типам речи</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .accessibility-panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 2000;
+        }
+        
+        .accessibility-btn {
+            background: white;
+            border: 2px solid #BB794C;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .accessibility-btn img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .accessibility-menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            border: 2px solid #BB794C;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+        
+        .accessibility-menu.active {
+            display: block;
+        }
+        
+        .accessibility-option {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border: 1px solid #BB794C;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-family: 'EducationalGothic', Arial, sans-serif;
+        }
+        
+        .accessibility-option:hover {
+            background: #DEB308;
+        }
+        
+        body.high-contrast {
+            background: #000 !important;
+            color: #fff !important;
+        }
+        
+        body.high-contrast .nav-btn {
+            background: #000 !important;
+            color: #fff !important;
+            border-color: #fff !important;
+        }
+        
+        body.high-contrast .nav-btn.active {
+            background: #fff !important;
+            color: #000 !important;
+        }
+        
+        body.large-text * {
+            font-size: 1.3em !important;
+        }
+        
+        body.large-text h1 {
+            font-size: 3.5rem !important;
+        }
+        
+        body.color-blind {
+            filter: grayscale(0%);
+        }
+        
+        body.color-blind .nav-btn {
+            background: #fff !important;
+            color: #000 !important;
+            border: 2px solid #000 !important;
+        }
+        
+        body.color-blind .nav-btn.active {
+            background: #000 !important;
+            color: #fff !important;
+        }
+        
+        body.color-blind .innovation-text {
+            color: #555 !important;
+        }
+        
+        body.color-blind .cta-btn {
+            background: #000 !important;
+            color: #fff !important;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: auto;
+            max-width: 500px;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 3000;
+            background: white;
+            border: 2px solid #BB794C;
+            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: #BB794C;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+        
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column;
+            }
+            
+            .hero-image {
+                max-width: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .top-nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 250px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 80px 20px 20px;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                transition: left 0.3s ease;
+                z-index: 2500;
+            }
+            
+            .top-nav.active {
+                left: 0;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <div class="accessibility-panel">
+        <button class="accessibility-btn" onclick="toggleAccessibilityMenu()">
+            <img src="icn/glass.png" alt="Режим для слабовидящих">
+        </button>
+        <div class="accessibility-menu" id="accessibilityMenu">
+            <div class="accessibility-option" onclick="toggleHighContrast()">Высокий контраст</div>
+            <div class="accessibility-option" onclick="toggleLargeText()">Крупный шрифт</div>
+            <div class="accessibility-option" onclick="toggleColorBlind()">Режим для дальтоников</div>
+            <div class="accessibility-option" onclick="resetAccessibility()">Сбросить</div>
+        </div>
+    </div>
+
+    <nav class="top-nav" id="mobileNav">
+        <button class="nav-btn" onclick="window.location.href='history.html'">История</button>
+        <button class="nav-btn" onclick="window.location.href='gallery.html'">Галерея</button>
+        <button class="nav-btn active">Главная</button>
+        <button class="nav-btn" onclick="window.location.href='learning.html'">Обучение</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Фанфики</button>
+    </nav>
+    
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <p></p>
+                <p class="innovation-text">ИННОВАЦИИ В КАЖДОМ УРОКЕ</p>
+                <h1>Цифровой путеводитель по типам речи: изучаем русский язык с калининградскими хомлинами</h1>
+                <p class="description">Мы предоставляем успешную стратегию изучения русского языка через интерактивные решения и инновационные подходы для любых образовательных задач</p>
+                <button class="cta-btn" onclick="window.location.href='fanfics.html'">Начать изучение →</button>
+            </div>
+            <div class="hero-visual">
+                <img src="img/HOMLINS.jpg" alt="Калининградские хомлины" class="hero-image">
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleMobileMenu() {
+            document.querySelector('.mobile-menu-btn').classList.toggle('active');
+            document.getElementById('mobileNav').classList.toggle('active');
+        }
+        
+        function toggleAccessibilityMenu() {
+            document.getElementById('accessibilityMenu').classList.toggle('active');
+        }
+        
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
+        }
+        
+        function toggleLargeText() {
+            document.body.classList.toggle('large-text');
+            localStorage.setItem('largeText', document.body.classList.contains('large-text'));
+        }
+        
+        function resetAccessibility() {
+            document.body.classList.remove('high-contrast', 'large-text', 'color-blind');
+            localStorage.removeItem('highContrast');
+            localStorage.removeItem('largeText');
+            localStorage.removeItem('colorBlind');
+        }
+        
+        function toggleColorBlind() {
+            document.body.classList.toggle('color-blind');
+            localStorage.setItem('colorBlind', document.body.classList.contains('color-blind'));
+        }
+        
+        window.onload = function() {
+            if (localStorage.getItem('highContrast') === 'true') {
+                document.body.classList.add('high-contrast');
+            }
+            if (localStorage.getItem('largeText') === 'true') {
+                document.body.classList.add('large-text');
+            }
+            if (localStorage.getItem('colorBlind') === 'true') {
+                document.body.classList.add('color-blind');
+            }
+        }
+    </script>
+</body>
+</html>

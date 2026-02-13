@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Витя - Повествование</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #f8f9fa;
+            z-index: 3000;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #BB794C, #DEB308);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <nav class="top-nav">
+        <button class="nav-btn" onclick="window.location.href='history.html'">История</button>
+        <button class="nav-btn" onclick="window.location.href='gallery.html'">Галерея</button>
+        <button class="nav-btn" onclick="window.location.href='index.html'">Главная</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Обучение</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Фанфики</button>
+    </nav>
+    
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Витя</h1>
+                <p class="description">На набережной Петра Великого, между величественным Музеем Мирового океана и легендарным судном «Витязь», навсегда пришвартованным к берегу, стоит маленький хомлин по имени Витя. Этот мальчуган в морской фуражке, поблёскивающей на солнце, всё ещё выбирает момент, чтобы отправиться в своё первое плавание по реке Преголе.</p>
+            </div>
+            <div class="hero-visual">
+                <img src="img/photo_11_2026-02-08_16-46-58.jpg" alt="Витя" class="hero-image">
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-visual">
+                <img src="img/photo_7_2026-01-29_17-57-14.jpg" alt="Витя у моря" class="hero-image">
+            </div>
+            <div class="hero-content">
+                <p class="description">По характеру он — вылитый отец: такой же мечтательный и задумчивый, он подолгу присматривается к воде, будто читая в её течении свои собственные, ещё не написанные истории.</p>
+                <div style="background: white; padding: 1.5rem; border-radius: 15px; margin: 1.5rem 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <p style="font-size: 1.1rem; margin-bottom: 1rem;"><strong>Какой тип текста представлен выше?</strong></p>
+                    <input type="text" id="answerInput" placeholder="Введите ответ..." style="width: 100%; padding: 0.8rem; border: 2px solid #BB794C; border-radius: 10px; font-size: 1rem; margin-bottom: 1rem;">
+                    <button onclick="checkAnswer()" style="padding: 0.8rem 2rem; border: none; background: #BB794C; color: white; border-radius: 10px; cursor: pointer; font-size: 1rem;">Проверить</button>
+                    <p id="result" style="margin-top: 1rem; font-weight: bold; font-size: 1.1rem;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function checkAnswer() {
+            const answer = document.getElementById('answerInput').value.toLowerCase().trim();
+            const result = document.getElementById('result');
+            if (answer === 'повествование') {
+                result.textContent = '✓ Правильно! Это повествование.';
+                result.style.color = '#28a745';
+                localStorage.setItem('vityaCompleted', 'true');
+            } else {
+                result.textContent = '✗ Неправильно. Попробуйте ещё раз!';
+                result.style.color = '#dc3545';
+            }
+        }
+        
+        window.addEventListener('scroll', function() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+            document.getElementById('progressFill').style.width = scrollPercent + '%';
+        });
+        
+        function toggleMobileMenu() {
+            document.querySelector('.mobile-menu-btn').classList.toggle('active');
+            document.querySelector('.top-nav').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

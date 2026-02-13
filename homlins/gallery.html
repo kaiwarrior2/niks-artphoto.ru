@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея - Хомлины</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(36, 36, 35, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-family: 'MontserratAlternates', Arial, sans-serif;
+            color: #242423;
+            margin-bottom: 2rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <button class="nav-btn" onclick="window.location.href='history.html'">История</button>
+        <button class="nav-btn active">Галерея</button>
+        <button class="nav-btn" onclick="window.location.href='index.html'">Главная</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Обучение</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Фанфики</button>
+    </nav>
+    
+    <div class="container">
+        <h1 class="gallery-title">Галерея хомлинов</h1>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openModal('img/HOMLINS.jpg')">
+                <img src="img/HOMLINS.jpg" alt="Хомлины">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_1_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_1_2026-01-29_17-57-14.jpg" alt="Фото 1">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_2_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_2_2026-01-29_17-57-14.jpg" alt="Фото 2">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_3_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_3_2026-01-29_17-57-14.jpg" alt="Фото 3">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_4_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_4_2026-01-29_17-57-14.jpg" alt="Фото 4">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_5_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_5_2026-01-29_17-57-14.jpg" alt="Фото 5">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_6_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_6_2026-01-29_17-57-14.jpg" alt="Фото 6">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_7_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_7_2026-01-29_17-57-14.jpg" alt="Фото 7">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_8_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_8_2026-01-29_17-57-14.jpg" alt="Фото 8">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_9_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_9_2026-01-29_17-57-14.jpg" alt="Фото 9">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_10_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_10_2026-01-29_17-57-14.jpg" alt="Фото 10">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_11_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_11_2026-01-29_17-57-14.jpg" alt="Фото 11">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_12_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_12_2026-01-29_17-57-14.jpg" alt="Фото 12">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_13_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_13_2026-01-29_17-57-14.jpg" alt="Фото 13">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_14_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_14_2026-01-29_17-57-14.jpg" alt="Фото 14">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_15_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_15_2026-01-29_17-57-14.jpg" alt="Фото 15">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_16_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_16_2026-01-29_17-57-14.jpg" alt="Фото 16">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_17_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_17_2026-01-29_17-57-14.jpg" alt="Фото 17">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_18_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_18_2026-01-29_17-57-14.jpg" alt="Фото 18">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_19_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_19_2026-01-29_17-57-14.jpg" alt="Фото 19">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_20_2026-01-29_17-57-14.jpg')">
+                <img src="img/photo_20_2026-01-29_17-57-14.jpg" alt="Фото 20">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_1_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_1_2026-02-08_16-46-58.jpg" alt="Фото 21">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_2_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_2_2026-02-08_16-46-58.jpg" alt="Фото 22">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_3_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_3_2026-02-08_16-46-58.jpg" alt="Фото 23">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_4_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_4_2026-02-08_16-46-58.jpg" alt="Фото 24">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_5_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_5_2026-02-08_16-46-58.jpg" alt="Фото 25">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_6_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_6_2026-02-08_16-46-58.jpg" alt="Фото 26">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_7_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_7_2026-02-08_16-46-58.jpg" alt="Фото 27">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_8_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_8_2026-02-08_16-46-58.jpg" alt="Фото 28">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_9_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_9_2026-02-08_16-46-58.jpg" alt="Фото 29">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_10_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_10_2026-02-08_16-46-58.jpg" alt="Фото 30">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_11_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_11_2026-02-08_16-46-58.jpg" alt="Фото 31">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_12_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_12_2026-02-08_16-46-58.jpg" alt="Фото 32">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_13_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_13_2026-02-08_16-46-58.jpg" alt="Фото 33">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_14_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_14_2026-02-08_16-46-58.jpg" alt="Фото 34">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_15_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_15_2026-02-08_16-46-58.jpg" alt="Фото 35">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_16_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_16_2026-02-08_16-46-58.jpg" alt="Фото 36">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_17_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_17_2026-02-08_16-46-58.jpg" alt="Фото 37">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_18_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_18_2026-02-08_16-46-58.jpg" alt="Фото 38">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_19_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_19_2026-02-08_16-46-58.jpg" alt="Фото 39">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_20_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_20_2026-02-08_16-46-58.jpg" alt="Фото 40">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_21_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_21_2026-02-08_16-46-58.jpg" alt="Фото 41">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_22_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_22_2026-02-08_16-46-58.jpg" alt="Фото 42">
+            </div>
+            <div class="gallery-item" onclick="openModal('img/photo_23_2026-02-08_16-46-58.jpg')">
+                <img src="img/photo_23_2026-02-08_16-46-58.jpg" alt="Фото 43">
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+    
+    <script>
+        function openModal(src) {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('modalImg').src = src;
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дедушка Карл - Рассуждение</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #f8f9fa;
+            z-index: 3000;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #BB794C, #DEB308);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: auto;
+            max-width: 400px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column;
+            }
+            
+            .hero-image {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <nav class="top-nav">
+        <button class="nav-btn" onclick="window.location.href='history.html'">История</button>
+        <button class="nav-btn" onclick="window.location.href='gallery.html'">Галерея</button>
+        <button class="nav-btn" onclick="window.location.href='index.html'">Главная</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Обучение</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Фанфики</button>
+    </nav>
+    
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Дедушка Карл</h1>
+                <p class="description">Если задуматься о том, как создаются современные легенды города, то история первого хомлина является прекрасным примером. Персонаж, чей путь начался с рисунка на бумаге, обрёл свою вечную форму в бронзе и был торжественно представлен городу летом 2018 года. Интересно, что установка на Медовом мосту велась в обстановке секретности, однако это лишь подогрело любопытство калининградцев, которые в тот же день обнаружили миниатюрного 15-сантиметрового бронзового старичка.</p>
+            </div>
+            <div class="hero-visual">
+                <img src="img/photo_1_2026-01-29_17-57-14.jpg" alt="Дедушка Карл" class="hero-image">
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-visual">
+                <img src="img/photo_2_2026-01-29_17-57-14.jpg" alt="Карл на мосту" class="hero-image">
+            </div>
+            <div class="hero-content">
+                <p class="description">Это наблюдение приводит нас к важной мысли: подлинным соавтором образа часто становится само общество. Имя для дедушки, как и для других членов этой сказочной семьи, не было выбрано произвольно — его выбирали всем миром. «Мастерская хомлинов» организовала специальные опросы в интернете, позволив жителям решить судьбу персонажа. Так старший хомлин обрёл имя Карл, и теперь он, сидя на парапете, словно мудрый наблюдатель, разглядывает город через свои круглые очки.</p>
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-content">
+                <p class="description">Рассматривая его характер, можно сделать вывод о замысле авторов: они стремились создать не просто статичную фигурку, а одушевлённый, близкий людям образ. Поэтому Карл наделён жизнерадостным и позитивным нравом. Его уютные привычки, вроде любви к чаю из местных трав, и важное умение — мастерская обработка дерева — делают его узнаваемым и по-домашнему теплым персонажем, с которым хочется встретиться вновь. Таким образом, через союз художественного замысла и народного голоса рождается новый, живой символ города.</p>
+                <div style="background: white; padding: 1.5rem; border-radius: 15px; margin: 1.5rem 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <p style="font-size: 1.1rem; margin-bottom: 1rem;"><strong>Какой тип текста представлен выше?</strong></p>
+                    <input type="text" id="answerInput" placeholder="Введите ответ..." style="width: 100%; padding: 0.8rem; border: 2px solid #BB794C; border-radius: 10px; font-size: 1rem; margin-bottom: 1rem;">
+                    <button onclick="checkAnswer()" style="padding: 0.8rem 2rem; border: none; background: #BB794C; color: white; border-radius: 10px; cursor: pointer; font-size: 1rem;">Проверить</button>
+                    <p id="result" style="margin-top: 1rem; font-weight: bold; font-size: 1.1rem;"></p>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="img/photo_13_2026-02-08_16-46-58.jpg" alt="Карл" class="hero-image">
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function checkAnswer() {
+            const answer = document.getElementById('answerInput').value.toLowerCase().trim();
+            const result = document.getElementById('result');
+            if (answer === 'рассуждение') {
+                result.textContent = '✓ Правильно! Это рассуждение.';
+                result.style.color = '#28a745';
+                localStorage.setItem('karlCompleted', 'true');
+            } else {
+                result.textContent = '✗ Неправильно. Попробуйте ещё раз!';
+                result.style.color = '#dc3545';
+            }
+        }
+        
+        window.addEventListener('scroll', function() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+            document.getElementById('progressFill').style.width = scrollPercent + '%';
+        });
+        
+        function toggleMobileMenu() {
+            document.querySelector('.mobile-menu-btn').classList.toggle('active');
+            document.querySelector('.top-nav').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

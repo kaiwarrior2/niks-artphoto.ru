@@ -1,0 +1,332 @@
+@font-face {
+    font-family: 'EducationalGothic';
+    src: url('fonts/EducationalGothic-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'MontserratAlternates';
+    src: url('fonts/MontserratAlternates-Black.ttf') format('truetype');
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: 'MontserratAlternatesItalic';
+    src: url('fonts/MontserratAlternates-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.top-nav {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.mobile-menu-btn {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 3000;
+    background: white;
+    border: 2px solid #BB794C;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.mobile-menu-btn span {
+    width: 25px;
+    height: 3px;
+    background: #BB794C;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.nav-btn {
+    background: white;
+    color: #242423;
+    border: 1px solid #BB794C;
+    width: 180px;
+    height: 45px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: 'EducationalGothic', Arial, sans-serif;
+    transition: all 0.3s ease;
+    opacity: 1;
+}
+
+.nav-btn:hover {
+    background: #DEB308;
+    color: #242423;
+    border-color: #DEB308;
+}
+
+.nav-btn.active {
+    background: #242423;
+    color: #DEB308;
+    border-color: #242423;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f8f9fa;
+    color: #242423;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 80px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1800px;
+    }
+    
+    h1 {
+        font-size: 4rem;
+    }
+    
+    .description {
+        font-size: 1.3rem;
+        max-width: 700px;
+    }
+    
+    .hero-image {
+        max-width: 500px;
+    }
+    
+    .nav-btn {
+        width: 280px;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+}
+
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70vh;
+    gap: 4rem;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.innovation-text {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: #A59257;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #242423;
+    font-family: 'MontserratAlternates', Arial, sans-serif;
+}
+
+.description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #854D34;
+    margin-bottom: 2rem;
+    max-width: 500px;
+}
+
+.cta-btn {
+    background: #242423;
+    color: #DEB308;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 900;
+    font-family: 'MontserratAlternatesItalic', Arial, sans-serif;
+    font-style: italic;
+}
+
+.cta-btn:hover {
+    background: #854D34;
+    transform: translateY(-2px);
+}
+
+.hero-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.hero-image {
+    max-width: 345px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(36, 36, 35, 0.15);
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+}
+
+.hero-image:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .top-nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 250px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        padding: 80px 20px 20px;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        transition: left 0.3s ease;
+        z-index: 2500;
+        transform: none;
+    }
+    
+    .top-nav.active {
+        left: 0;
+    }
+    
+    .nav-btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    body {
+        padding-top: 20px;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+    
+    .hero-section {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .description {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+    
+    .hero-image {
+        max-width: 280px;
+    }
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, #A59257, #DEB308, #A59257);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px rgba(165, 146, 87, 0.3);
+}
+
+.hamster {
+    font-size: 4rem;
+    margin: 1rem 0;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.start-btn {
+    background: linear-gradient(45deg, #BB794C, #DEB308, #FFD700, #DEB308, #BB794C);
+    background-size: 300% 300%;
+    color: #242423;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(222, 179, 8, 0.3);
+    animation: goldButtonShine 4s ease-in-out infinite;
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(222, 179, 8, 0.5);
+    animation-duration: 2s;
+}
+
+@keyframes goldButtonShine {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}

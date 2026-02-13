@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Папа Лео - Описание</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #f8f9fa;
+            z-index: 3000;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #BB794C, #DEB308);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: auto;
+            max-width: 500px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column;
+            }
+            
+            .hero-image {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <nav class="top-nav">
+        <button class="nav-btn" onclick="window.location.href='history.html'">История</button>
+        <button class="nav-btn" onclick="window.location.href='gallery.html'">Галерея</button>
+        <button class="nav-btn" onclick="window.location.href='index.html'">Главная</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Обучение</button>
+        <button class="nav-btn" onclick="window.location.href='fanfics.html'">Фанфики</button>
+    </nav>
+    
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Папа Лео</h1>
+                <p class="description">Прямо у входа в областной музей изобразительных искусств на Ленинском проспекте застыл в бронзе самый одухотворённый член сказочного семейства — Лео. Этот мечтательный хомлин, словно сошедший со страниц поэтического сборника, обрёл свой дом во Всероссийский день янтаря в 2021 году.</p>
+            </div>
+            <div class="hero-visual">
+                <img src="img/photo_19_2026-02-08_16-46-58.jpg" alt="Папа Лео" class="hero-image">
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-visual">
+                <img src="img/photo_21_2026-02-08_16-46-58.jpg" alt="Лео у музея" class="hero-image">
+            </div>
+            <div class="hero-content">
+                <p class="description">Место для него выбрано глубоко символично: ведь этот персонаж не просто неравнодушен к творчеству — его душа рождает стихи. Его неизменная элегантная шляпа украшает голову, но в моменты размышлений он снимает её, чтобы наблюдать за танцем облаков или считать мерцающие звёзды. Именно в такой задумчивой позе его обычно и застают прохожие.</p>
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-content">
+                <p class="description">Имя Лео носит особую смысловую игру — оно отсылает нас к величественным скульптурным изображениям львов, стражей истории Калининграда. Два таких каменных стража украшают крыльцо самого музея, создавая незримую связь между древними символами города и его новым поэтическим хранителем.</p>
+                <div style="background: white; padding: 1.5rem; border-radius: 15px; margin: 1.5rem 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <p style="font-size: 1.1rem; margin-bottom: 1rem;"><strong>Какой тип текста представлен выше?</strong></p>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button onclick="checkAnswer('повествование')" style="padding: 0.8rem 1.5rem; border: 2px solid #BB794C; background: white; border-radius: 10px; cursor: pointer; font-size: 1rem;">Повествование</button>
+                        <button onclick="checkAnswer('описание')" style="padding: 0.8rem 1.5rem; border: 2px solid #BB794C; background: white; border-radius: 10px; cursor: pointer; font-size: 1rem;">Описание</button>
+                        <button onclick="checkAnswer('рассуждение')" style="padding: 0.8rem 1.5rem; border: 2px solid #BB794C; background: white; border-radius: 10px; cursor: pointer; font-size: 1rem;">Рассуждение</button>
+                    </div>
+                    <p id="result" style="margin-top: 1rem; font-weight: bold; font-size: 1.1rem;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function checkAnswer(answer) {
+            const result = document.getElementById('result');
+            if (answer === 'описание') {
+                result.textContent = '✓ Правильно! Это описание.';
+                result.style.color = '#28a745';
+                localStorage.setItem('leoCompleted', 'true');
+            } else {
+                result.textContent = '✗ Неправильно. Попробуйте ещё раз!';
+                result.style.color = '#dc3545';
+            }
+        }
+        
+        window.addEventListener('scroll', function() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+            document.getElementById('progressFill').style.width = scrollPercent + '%';
+        });
+        
+        function toggleMobileMenu() {
+            document.querySelector('.mobile-menu-btn').classList.toggle('active');
+            document.querySelector('.top-nav').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
