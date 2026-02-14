@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контакты — Никс Фотограф</title>
+    <title>РљРѕРЅС‚Р°РєС‚С‹ вЂ” РќРёРєСЃ Р¤РѕС‚РѕРіСЂР°С„</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="fonts/fonts.css">`n    <link rel="stylesheet" href="theme.css">
-    <link rel="stylesheet" href="effects.css">
-    <link rel="stylesheet" href="navigation.css">
     <style>
         * {
             margin: 0;
@@ -26,7 +23,6 @@
             --bg-light: #18181b;
             --bg-dark: #09090b;
             --bg-card: #27272a;
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
             --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.3);
             --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -46,7 +42,6 @@
             padding: 0 20px;
         }
         
-        /* Navigation */
         .navbar {
             position: fixed;
             top: 0;
@@ -83,11 +78,6 @@
             transition: all var(--transition-fast);
         }
         
-        .nav-logo:hover img {
-            transform: scale(1.1) rotate(5deg);
-            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
-        }
-        
         .nav-menu {
             display: flex;
             list-style: none;
@@ -104,46 +94,9 @@
             border-radius: 8px;
         }
         
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
-            opacity: 0;
-            border-radius: 8px;
-            transition: opacity var(--transition-fast);
-            z-index: -1;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
-            transition: all var(--transition-fast);
-            transform: translateX(-50%);
-        }
-        
-        .nav-link:hover::before {
-            opacity: 0.1;
-        }
-        
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 80%;
-        }
-        
         .nav-link:hover,
         .nav-link.active {
             color: #e4e4e7;
-            transform: translateY(-2px);
-            text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
         }
         
         .hamburger {
@@ -160,19 +113,6 @@
             transition: all var(--transition-fast);
         }
         
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-        
-        /* Contact Hero */
         .contact-hero {
             height: 60vh;
             display: flex;
@@ -195,7 +135,6 @@
             opacity: 0.9;
         }
         
-        /* Contact Content */
         .contact-content {
             padding: 80px 0;
             background: var(--bg-light);
@@ -272,7 +211,6 @@
             color: var(--accent-color);
         }
         
-        /* Contact Form */
         .contact-form {
             background: var(--bg-card);
             padding: 3rem;
@@ -296,185 +234,78 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            color: var(--text-dark);
         }
         
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid rgba(245, 158, 11, 0.2);
-            border-radius: 8px;
-            font-size: 1rem;
+            padding: 1rem;
             background: var(--bg-light);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 10px;
             color: var(--text-dark);
-            transition: border-color var(--transition-fast);
+            transition: all var(--transition-fast);
         }
         
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
         }
         
         .form-group textarea {
+            min-height: 150px;
             resize: vertical;
-            min-height: 120px;
         }
         
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
             background: var(--gradient-secondary);
             color: white;
-            text-decoration: none;
             border: none;
-            border-radius: 50px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border-radius: 10px;
+            font-weight: 600;
             cursor: pointer;
             transition: all var(--transition-fast);
-            width: 100%;
-            font-size: 1rem;
         }
         
-        .btn:hover {
-            transform: translateY(-3px);
+        .submit-btn:hover {
+            transform: translateY(-2px);
             box-shadow: var(--shadow-medium);
         }
         
-        /* Footer */
-        .footer {
-            background: var(--bg-dark);
-            color: white;
-            padding: 60px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-section h3,
-        .footer-section h4 {
-            margin-bottom: 1rem;
-            color: white;
-        }
-        
-        .footer-section ul {
-            list-style: none;
-        }
-        
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color var(--transition-fast);
-        }
-        
-        .footer-section a:hover {
-            color: white;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .social-link {
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            transition: all var(--transition-fast);
-        }
-        
-        .social-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Responsive */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-                z-index: 1001;
-            }
-            
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background: rgba(24, 24, 27, 0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                padding: 2rem;
-                box-shadow: var(--shadow-medium);
-                transform: translateX(100%);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                border: none;
-                gap: 3rem;
-                z-index: 1000;
-            }
-            
-            .nav-menu.active {
-                transform: translateX(0);
-                opacity: 1;
-                visibility: visible;
-            }
-            
-            .nav-link {
-                font-size: 1.5rem;
-                padding: 15px 20px;
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
             
             .contact-hero h1 {
                 font-size: 2.5rem;
             }
             
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .contact-form {
-                padding: 2rem;
+            .hamburger {
+                display: flex;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="index.html">
-                    <img src="images/niks.png" alt="Никс - Фотограф">
+                    <img src="images/niks.png" alt="РќРёРєСЃ">
                 </a>
             </div>
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html" class="nav-link">?? Главная</a></li>
-                <li><a href="portfolio.html" class="nav-link">?? Портфолио</a></li>
-                <li><a href="about.html" class="nav-link">?? О нас</a></li>
-                <li><a href="blog.html" class="nav-link">?? Блог</a></li>
-                <li><a href="contact.html" class="nav-link active">?? Контакты</a></li>
+                <li><a href="index.html" class="nav-link">рџЏ  Р“Р»Р°РІРЅР°СЏ</a></li>
+                <li><a href="portfolio.html" class="nav-link">рџ“ё РџРѕСЂС‚С„РѕР»РёРѕ</a></li>
+                <li><a href="about.html" class="nav-link">рџ‘¤ Рћ РЅР°СЃ</a></li>
+                <li><a href="blog.html" class="nav-link">рџ“ќ Р‘Р»РѕРі</a></li>
+                <li><a href="contact.html" class="nav-link active">рџ“ћ РљРѕРЅС‚Р°РєС‚С‹</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -484,23 +315,21 @@
         </div>
     </nav>
 
-    <!-- Contact Hero -->
     <section class="contact-hero">
         <div class="container">
-            <h1>Свяжитесь со мной</h1>
-            <p>Готов обсудить ваш проект и воплотить идеи в жизнь</p>
+            <h1>РЎРІСЏР¶РёС‚РµСЃСЊ СЃРѕ РјРЅРѕР№</h1>
+            <p>Р“РѕС‚РѕРІ РѕР±СЃСѓРґРёС‚СЊ РІР°С€ РїСЂРѕРµРєС‚ Рё РІРѕРїР»РѕС‚РёС‚СЊ РёРґРµРё РІ Р¶РёР·РЅСЊ</p>
         </div>
     </section>
 
-    <!-- Contact Content -->
     <section class="contact-content">
         <div class="container">
             <div class="contact-grid">
                 <div class="contact-info">
-                    <h2>Контактная информация</h2>
+                    <h2>РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</h2>
                     
                     <div class="contact-method animate-on-scroll">
-                        <div class="contact-icon">??</div>
+                        <div class="contact-icon">рџ“§</div>
                         <div class="contact-details">
                             <h3>Email</h3>
                             <p><a href="mailto:niksfotograf@gmail.com">niksfotograf@gmail.com</a></p>
@@ -508,7 +337,7 @@
                     </div>
                     
                     <div class="contact-method animate-on-scroll">
-                        <div class="contact-icon">??</div>
+                        <div class="contact-icon">рџ“±</div>
                         <div class="contact-details">
                             <h3>Telegram</h3>
                             <p><a href="https://t.me/objektivniksa" target="_blank">@objektivniksa</a></p>
@@ -516,112 +345,84 @@
                     </div>
                     
                     <div class="contact-method animate-on-scroll">
-                        <div class="contact-icon">??</div>
+                        <div class="contact-icon">рџ“Ќ</div>
                         <div class="contact-details">
-                            <h3>Локация</h3>
-                            <p>Калининград, Россия</p>
+                            <h3>Р›РѕРєР°С†РёСЏ</h3>
+                            <p>РљР°Р»РёРЅРёРЅРіСЂР°Рґ, Р РѕСЃСЃРёСЏ</p>
                         </div>
                     </div>
                     
                     <div class="contact-method animate-on-scroll">
-                        <div class="contact-icon">?</div>
+                        <div class="contact-icon">вЏ°</div>
                         <div class="contact-details">
-                            <h3>Время работы</h3>
-                            <p>Пн-Вс: 10:00 - 20:00</p>
+                            <h3>Р’СЂРµРјСЏ СЂР°Р±РѕС‚С‹</h3>
+                            <p>РџРЅ-Р’СЃ: 10:00 - 20:00</p>
                         </div>
                     </div>
                 </div>
-                
-                <div class="contact-form animate-on-scroll">
-                    <h2>Напишите мне</h2>
-                    <form>
+
+                <div class="contact-form">
+                    <h2>РќР°РїРёС€РёС‚Рµ РјРЅРµ</h2>
+                    <form id="contactForm">
                         <div class="form-group">
-                            <label for="name">Имя</label>
-                            <input type="text" id="name" name="name" required>
+                            <label for="name">РРјСЏ</label>
+                            <input type="text" id="name" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="subject">Тема</label>
-                            <input type="text" id="subject" name="subject" required>
+                            <label for="subject">РўРµРјР°</label>
+                            <input type="text" id="subject" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="message">Сообщение</label>
-                            <textarea id="message" name="message" required placeholder="Расскажите о вашем проекте..."></textarea>
+                            <label for="message">РЎРѕРѕР±С‰РµРЅРёРµ</label>
+                            <textarea id="message" placeholder="Р Р°СЃСЃРєР°Р¶РёС‚Рµ Рѕ РІР°С€РµРј РїСЂРѕРµРєС‚Рµ..." required></textarea>
                         </div>
                         
-                        <button type="submit" class="btn">Отправить сообщение</button>
+                        <button type="submit" class="submit-btn">РћС‚РїСЂР°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>НИКС</h3>
-                    <p>Профессиональный фотограф</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Навигация</h4>
-                    <ul>
-                        <li><a href="portfolio.html">Портфолио</a></li>
-                        <li><a href="blog.html">Блог</a></li>
-                        <li><a href="about.html">О нас</a></li>
-                        <li><a href="contact.html">Контакты</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Контакты</h4>
-                    <p>Email: niksfotograf@gmail.com</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Социальные сети</h4>
-                    <div class="social-links">
-                        <a href="https://t.me/objektivniksa" class="social-link">Telegram</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-            </div>
-        </div>
-    </footer>
-
     <script>
-        // Mobile menu
+        // Hamburger menu
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         
-        if (hamburger) {
+        if (hamburger && navMenu) {
             hamburger.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
                 hamburger.classList.toggle('active');
             });
-            
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                });
-            });
         }
         
-        // Form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Спасибо за сообщение! Я свяжусь с вами в ближайшее время.');
+        // Animate on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
         });
+        
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+        
+        // Form submit
+        const form = document.getElementById('contactForm');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('РЎРїР°СЃРёР±Рѕ Р·Р° СЃРѕРѕР±С‰РµРЅРёРµ! РЇ СЃРІСЏР¶СѓСЃСЊ СЃ РІР°РјРё РІ Р±Р»РёР¶Р°Р№С€РµРµ РІСЂРµРјСЏ.');
+                e.target.reset();
+            });
+        }
     </script>
-    <!-- Navigation Script -->
-    <script src="navigation.js"></script>
-    <script src="global-effects.js"></script>
-    <script src="theme.js"></script>`n</body>
+</body>
 </html>
