@@ -636,6 +636,75 @@
             color: var(--secondary-color);
         }
         
+        /* Comments Styles */
+        .comments-wrapper {
+            position: absolute;
+            bottom: -400px;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            padding: 1.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .comments-section {
+            margin-bottom: 1rem;
+        }
+        
+        .comment {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .comment-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .comment p {
+            color: white;
+            margin: 0;
+        }
+        
+        .comment-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .comment-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+        
+        .comment-form button {
+            padding: 0.8rem 1.5rem;
+            background: var(--gradient-secondary);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .comment-form button:hover {
+            transform: scale(1.05);
+        }
+        
         @keyframes modalZoom {
             from {
                 transform: scale(0.3);
@@ -989,6 +1058,13 @@
                 <h3 id="modalTitle"></h3>
                 <p id="modalCategory"></p>
             </div>
+            <div class="comments-wrapper">
+                <div id="commentsContainer"></div>
+                <div class="comment-form">
+                    <input type="text" id="commentInput" placeholder="Оставьте комментарий...">
+                    <button onclick="addComment(currentPhotoId)">💬</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1038,6 +1114,9 @@
 
     <!-- Likes System -->
     <script src="likes-system.js"></script>
+    
+    <!-- Comments System -->
+    <script src="comments.js"></script>
     
     <script>
         
@@ -1137,19 +1216,22 @@
         const modalImage = document.getElementById('modalImage');
         const modalTitle = document.getElementById('modalTitle');
         const modalCategory = document.getElementById('modalCategory');
+        let currentPhotoId = null;
 
-        viewBtns.forEach(btn => {
+        viewBtns.forEach((btn, index) => {
             btn.addEventListener('click', (e) => {
                 const portfolioItem = e.target.closest('.portfolio-item');
                 const img = portfolioItem.querySelector('.portfolio-image');
                 const title = portfolioItem.querySelector('h3').textContent;
                 const category = portfolioItem.querySelector('p').textContent;
 
+                currentPhotoId = 'photo_' + index;
                 modalImage.src = img.src;
                 modalImage.alt = img.alt;
                 modalTitle.textContent = title;
                 modalCategory.textContent = category;
 
+                updateCommentsDisplay(currentPhotoId);
                 modal.style.display = 'flex';
             });
         });
