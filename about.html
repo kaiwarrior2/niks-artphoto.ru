@@ -1,0 +1,140 @@
+сделай свежее страницу контакты и блог добавь эти страницы блога<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас — Никс Фотограф</title>
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; background: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        h1, h2 { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 700; line-height: 1.2; }
+        .navbar { position: fixed; top: 0; width: 100%; background: var(--bg-light); backdrop-filter: blur(15px) saturate(180%); z-index: 10000; padding: 0.5rem 0; border-bottom: 1px solid rgba(245,158,11,0.1); transition: all 0.3s ease; }
+        .navbar.scrolled { background: var(--bg-light); box-shadow: var(--shadow-light); padding: 0.3rem 0; border-bottom: 1px solid rgba(245,158,11,0.3); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: center; align-items: center; }
+        .nav-logo { margin-right: 50px; }
+        .nav-logo a { display: flex; align-items: center; text-decoration: none; }
+        .nav-logo img { height: 84px; width: auto; transition: all 0.3s; }
+        .nav-logo:hover img { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 10px rgba(245,158,11,0.5)); }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-link { text-decoration: none; color: var(--text-light); font-weight: 500; position: relative; transition: all 0.3s; padding: 5px 10px; border-radius: 8px; }
+        .nav-link::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient-secondary); opacity: 0; border-radius: 8px; transition: opacity 0.3s; z-index: -1; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 2px; background: var(--gradient-secondary); transition: all 0.3s; transform: translateX(-50%); }
+        .nav-link:hover::before { opacity: 0.1; }
+        .nav-link:hover::after, .nav-link.active::after { width: 80%; }
+        .nav-link:hover, .nav-link.active { color: var(--text-dark); transform: translateY(-2px); text-shadow: var(--shadow-glow); }
+        .container { max-width: 900px; margin: 0 auto; padding: 120px 20px 60px; }
+        h1 { font-size: 3rem; text-align: center; margin-bottom: 2rem; background: var(--gradient-animated); background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradient 4s ease infinite; }
+        @keyframes gradient { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .about-content { background: var(--bg-card); padding: 3rem; border-radius: 20px; line-height: 1.8; box-shadow: var(--shadow-heavy); border: 1px solid rgba(245,158,11,0.2); animation: fadeIn 0.6s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .about-content p { margin-bottom: 1.5rem; font-size: 1.15rem; color: var(--text-light); }
+        .about-image { text-align: center; margin: 2rem 0; }
+        .about-image img { max-width: 400px; width: 100%; border-radius: 20px; box-shadow: 0 20px 60px rgba(245,158,11,0.3); transition: all 0.5s; border: 2px solid rgba(245,158,11,0.2); }
+        .about-image img:hover { transform: scale(1.05) rotate(2deg); box-shadow: 0 30px 80px rgba(245,158,11,0.5); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--primary-color); transition: all 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        @media (max-width: 768px) {
+            .nav-container { justify-content: space-between; }
+            .nav-logo { margin-right: 0; }
+            .hamburger { display: flex; z-index: 1001; }
+            .nav-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg-light); flex-direction: column; justify-content: center; align-items: center; transform: translateX(100%); opacity: 0; visibility: hidden; transition: all 0.4s; }
+            .nav-menu.active { transform: translateX(0); opacity: 1; visibility: visible; }
+            .nav-link { font-size: 1.5rem; padding: 15px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo"><a href="index.html"><img src="images/niks.png" alt="Никс"></a></div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">🏠 Главная</a></li>
+                <li><a href="portfolio.html" class="nav-link">📸 Портфолио</a></li>
+                <li><a href="about.html" class="nav-link active">👤 О нас</a></li>
+                <li><a href="blog.html" class="nav-link">📝 Блог</a></li>
+                <li><a href="contact.html" class="nav-link">📞 Контакты</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>О фотографе</h1>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="media/portfolio/photo_2025-12-29_08-46-03.jpg" alt="Никс">
+            </div>
+            <p>Привет! Меня зовут Артур, и я живу в Калининграде. Мне 16 лет, и я начинающий фотограф, который только начинает свой путь в этом увлекательном искусстве. Фотография для меня — это способ запечатлеть моменты, которые я вижу вокруг себя, и передать свои эмоции через кадры.</p>
+            <p>После девятого класса я планирую поступить в колледж программирования. Мне всегда интересовали технологии, и я хочу развиваться в этой области. Но одновременно с учёбой я также собираюсь пройти курс по фотографии, чтобы улучшить свои навыки и стать более профессиональным в этом деле. Я верю, что сочетание программирования и фотографии откроет для меня новые горизонты.</p>
+            <p>В свободное время я люблю гулять по городу, наслаждаясь атмосферой и природой. Это помогает мне находить вдохновение для моих фотографий. Также я увлекаюсь рисованием — это позволяет мне развивать креативность и находить новые идеи для съемки. Музыка — еще одна моя страсть: я слушаю разные жанры и часто пою. Танцы тоже занимают важное место в моей жизни — это отличный способ выразить свои эмоции и расслабиться.</p>
+            <p>Я также волонтерю в своей школе и городе, помогая людям в сложных ситуациях. Мне важно делать что-то полезное и поддерживать тех, кто нуждается в помощи. Это приносит мне удовлетворение и делает мир намного лучше.</p>
+            <p>Если у вас есть вопросы или вы хотите пообщаться, не стесняйтесь писать мне! Я всегда рад новым знакомствам и готов помочь, если вам нужна поддержка или совет. Надеюсь, мы сможем поделиться опытом и вдохновением друг с другом!</p>
+        </div>
+    </div>
+</body>
+<script>
+    const navbar = document.getElementById('navbar');
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+    
+    const isMobile = window.innerWidth <= 768;
+    
+    if (!isMobile) {
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.about-content');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top > window.innerHeight || rect.bottom < 0) return;
+                const x = (e.clientX - rect.left - rect.width / 2) / 30;
+                const y = (e.clientY - rect.top - rect.height / 2) / 30;
+                card.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
+            });
+        });
+    }
+    
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section, .container');
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
+                section.style.boxShadow = '0 0 50px rgba(245, 158, 11, 0.3)';
+            } else {
+                section.style.boxShadow = 'none';
+            }
+        });
+    });
+</script>
+<script src="theme.js"></script>
+</html>

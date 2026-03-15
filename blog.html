@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог — Никс Фотограф</title>
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; background: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        h1, h2 { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 700; line-height: 1.2; }
+        .navbar { position: fixed; top: 0; width: 100%; background: var(--bg-light); backdrop-filter: blur(15px) saturate(180%); z-index: 10000; padding: 0.5rem 0; border-bottom: 1px solid rgba(245,158,11,0.1); transition: all 0.3s ease; }
+        .navbar.scrolled { box-shadow: var(--shadow-light); padding: 0.3rem 0; border-bottom: 1px solid rgba(245,158,11,0.3); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: center; align-items: center; }
+        .nav-logo { margin-right: 50px; }
+        .nav-logo a { display: flex; align-items: center; text-decoration: none; }
+        .nav-logo img { height: 84px; width: auto; transition: all 0.3s; }
+        .nav-logo:hover img { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 10px rgba(245,158,11,0.5)); }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-link { text-decoration: none; color: var(--text-light); font-weight: 500; position: relative; transition: all 0.3s; padding: 5px 10px; border-radius: 8px; }
+        .nav-link::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient-secondary); opacity: 0; border-radius: 8px; transition: opacity 0.3s; z-index: -1; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 2px; background: var(--gradient-secondary); transition: all 0.3s; transform: translateX(-50%); }
+        .nav-link:hover::before { opacity: 0.1; }
+        .nav-link:hover::after, .nav-link.active::after { width: 80%; }
+        .nav-link:hover, .nav-link.active { color: var(--text-dark); transform: translateY(-2px); text-shadow: var(--shadow-glow); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--primary-color); transition: all 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        @media (max-width: 768px) {
+            .nav-container { justify-content: space-between; }
+            .nav-logo { margin-right: 0; }
+            .hamburger { display: flex; z-index: 1001; }
+            .nav-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg-light); flex-direction: column; justify-content: center; align-items: center; transform: translateX(100%); opacity: 0; visibility: hidden; transition: all 0.4s; }
+            .nav-menu.active { transform: translateX(0); opacity: 1; visibility: visible; }
+            .nav-link { font-size: 1.5rem; padding: 15px 20px; }
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 120px 20px 60px; }
+
+        .page-header { text-align: center; margin-bottom: 3rem; }
+        h1 { font-size: 3.2rem; margin-bottom: 0.5rem; background: var(--gradient-animated); background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradient 4s ease infinite; }
+        @keyframes gradient { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .subtitle { color: var(--text-light); font-size: 1.1rem; margin-bottom: 2rem; }
+
+        .filters { display: flex; gap: 0.7rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+        .filter-btn { padding: 0.5rem 1.3rem; border-radius: 50px; border: 1px solid rgba(245,158,11,0.25); background: transparent; color: var(--text-light); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .filter-btn:hover, .filter-btn.active { background: var(--gradient-secondary); color: white; border-color: transparent; box-shadow: 0 4px 15px rgba(245,158,11,0.35); transform: translateY(-2px); }
+
+        .featured { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        @media (max-width: 768px) { .featured { grid-template-columns: 1fr; } }
+
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+
+        .blog-card { background: var(--bg-card); border-radius: 20px; overflow: hidden; border: 1px solid rgba(245,158,11,0.1); box-shadow: var(--shadow-medium); transition: all 0.4s; text-decoration: none; display: flex; flex-direction: column; opacity: 0; animation: fadeIn 0.6s forwards; }
+        .blog-card:nth-child(1) { animation-delay: 0.05s; }
+        .blog-card:nth-child(2) { animation-delay: 0.15s; }
+        .blog-card:nth-child(3) { animation-delay: 0.25s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .blog-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(245,158,11,0.3); border-color: rgba(245,158,11,0.4); }
+
+        .card-cover { width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.5s; }
+        .blog-card:hover .card-cover { transform: scale(1.05); }
+        .card-cover-wrap { overflow: hidden; position: relative; }
+        .card-cover-placeholder { width: 100%; height: 220px; background: var(--gradient-secondary); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+
+        .card-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; }
+        .card-tag { display: inline-block; background: rgba(245,158,11,0.15); color: var(--secondary-color); font-size: 0.78rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+        .card-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.7rem; line-height: 1.3; }
+        .card-excerpt { color: var(--text-light); font-size: 0.95rem; line-height: 1.7; flex: 1; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid rgba(245,158,11,0.1); }
+        .card-date { color: #71717a; font-size: 0.83rem; }
+        .card-read { color: var(--secondary-color); font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 4px; transition: gap 0.2s; }
+        .blog-card:hover .card-read { gap: 8px; }
+
+        .featured .blog-card .card-cover { height: 300px; }
+        .featured .blog-card .card-title { font-size: 1.6rem; }
+
+        .section-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary-color); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        .section-label::after { content: ''; flex: 1; height: 1px; background: rgba(245,158,11,0.2); }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo"><a href="index.html"><img src="images/niks.png" alt="Никс"></a></div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">🏠 Главная</a></li>
+                <li><a href="portfolio.html" class="nav-link">📸 Портфолио</a></li>
+                <li><a href="about.html" class="nav-link">👤 О нас</a></li>
+                <li><a href="blog.html" class="nav-link active">📝 Блог</a></li>
+                <li><a href="contact.html" class="nav-link">📞 Контакты</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Блог</h1>
+            <p class="subtitle">Заметки о фотографии, технике и вдохновении</p>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Все статьи</button>
+                <button class="filter-btn" data-filter="техника">📷 Техника</button>
+                <button class="filter-btn" data-filter="композиция">🎭 Композиция</button>
+                <button class="filter-btn" data-filter="стрит">🏙️ Стрит</button>
+            </div>
+        </div>
+
+        <div class="section-label">Свежие статьи</div>
+
+        <div class="featured">
+            <a href="blog-camera.html" class="blog-card" data-category="техника">
+                <div class="card-cover-wrap">
+                    <img src="media/600D2.jpg" alt="Canon 600D" class="card-cover" onerror="this.parentElement.innerHTML='<div class=\'card-cover-placeholder\'>📷</div>'">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Техника</span>
+                    <div class="card-title">Как выбрать первый фотоаппарат</div>
+                    <p class="card-excerpt">На основе своего опыта рекомендую Canon EOS 600D — идеальный баланс цены и качества для начинающих. Разбираю зеркалки vs беззеркалки, объективы и что проверять при покупке б/у.</p>
+                    <div class="card-footer">
+                        <span class="card-date">29 декабря 2024</span>
+                        <span class="card-read">Читать →</span>
+                    </div>
+                </div>
+            </a>
+                </a>
+                <a href="blog-portrait.html" class="blog-card" data-category="стрит" style="animation-delay:0.25s">
+                    <div class="card-cover-wrap">
+                        <img src="media/portfolio/photo_2025-12-28_17-52-51.jpg" alt="Улица" class="card-cover" style="height:160px" onerror="this.parentElement.innerHTML='<div class=\'card-cover-placeholder\' style=\'height:160px\'>🏙️</div>'">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">Стрит</span>
+                        <div class="card-title">Уличная фотография: ловим момент</div>
+                        <p class="card-excerpt">Контрасты, эмоции и Калининград глазами фотографа.</p>
+                        <div class="card-footer">
+                            <span class="card-date">15 декабря 2024</span>
+                            <span class="card-read">Читать →</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.blog-card').forEach(card => {
+                    const match = filter === 'all' || card.dataset.category === filter;
+                    card.style.display = match ? 'flex' : 'none';
+                });
+            });
+        });
+    </script>
+    <script src="theme.js"></script>
+</body>
+</html>
