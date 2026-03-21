@@ -46,29 +46,6 @@ const themes = {
             '--shadow-neon': '0 0 5px rgba(245, 158, 11, 0.5), 0 0 10px rgba(245, 158, 11, 0.4), 0 0 15px rgba(245, 158, 11, 0.3)'
         }
     },
-    blue: {
-        name: 'Темно-синяя',
-        colors: {
-            '--primary-color': '#e0e7ff',
-            '--secondary-color': '#3b82f6',
-            '--accent-color': '#60a5fa',
-            '--text-dark': '#e0e7ff',
-            '--text-light': '#93c5fd',
-            '--bg-light': '#0f172a',
-            '--bg-dark': '#020617',
-            '--bg-card': '#1e293b',
-            '--gradient-primary': 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)',
-            '--gradient-secondary': 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)',
-            '--gradient-tertiary': 'linear-gradient(135deg, #2563eb 0%, #7dd3fc 100%)',
-            '--gradient-dark': 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
-            '--gradient-animated': 'linear-gradient(-45deg, #3b82f6, #1e40af, #60a5fa, #2563eb)',
-            '--shadow-light': '0 5px 15px rgba(0, 0, 0, 0.3)',
-            '--shadow-medium': '0 10px 30px rgba(0, 0, 0, 0.4)',
-            '--shadow-heavy': '0 20px 60px rgba(0, 0, 0, 0.5)',
-            '--shadow-glow': '0 0 20px rgba(59, 130, 246, 0.3)',
-            '--shadow-neon': '0 0 5px rgba(59, 130, 246, 0.5), 0 0 10px rgba(59, 130, 246, 0.4), 0 0 15px rgba(59, 130, 246, 0.3)'
-        }
-    }
 };
 
 function getCurrentTheme() {
@@ -93,7 +70,6 @@ function createThemeSwitcher() {
     switcher.innerHTML = `
         <button class="theme-btn" data-theme="dark" title="Темная тема">🌙</button>
         <button class="theme-btn" data-theme="light" title="Светлая тема">☀️</button>
-        <button class="theme-btn" data-theme="blue" title="Темно-синяя тема">🌊</button>
     `;
     
     document.body.appendChild(switcher);
