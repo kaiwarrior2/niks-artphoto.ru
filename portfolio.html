@@ -12,8 +12,12 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 120px 20px 60px; }
         h1 { font-size: 3.5rem; text-align: center; margin-bottom: 3rem; background: var(--gradient-animated); background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradient 4s ease infinite; }
         @keyframes gradient { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .filters { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+        .filter-btn { padding: 10px 24px; border: 2px solid rgba(245,158,11,0.4); background: transparent; color: var(--text-light); border-radius: 50px; cursor: pointer; font-size: 0.95rem; font-weight: 500; transition: all 0.3s; }
+        .filter-btn:hover, .filter-btn.active { background: var(--gradient-secondary); border-color: transparent; color: white; box-shadow: 0 0 20px rgba(245,158,11,0.4); transform: translateY(-2px); }
         .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
         .gallery-item { position: relative; overflow: hidden; border-radius: 20px; cursor: pointer; transition: all 0.5s; box-shadow: 0 10px 30px rgba(0,0,0,0.3); opacity: 0; animation: fadeIn 0.6s forwards; }
+        .gallery-item.hidden { display: none; }
         .gallery-item:nth-child(1) { animation-delay: 0.1s; }
         .gallery-item:nth-child(2) { animation-delay: 0.2s; }
         .gallery-item:nth-child(3) { animation-delay: 0.3s; }
@@ -98,30 +102,55 @@
 
     <div class="container">
         <h1>Мои работы</h1>
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Все работы</button>
+            <button class="filter-btn" data-filter="portrait">Портреты</button>
+            <button class="filter-btn" data-filter="street">Улица</button>
+            <button class="filter-btn" data-filter="graffiti">Граффити на улицах</button>
+        </div>
         <div class="gallery">
-            <div class="gallery-item"><img src="media/portfolio/photo_2025-12-24_07-26-43.jpg" alt="Фото 1"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2025-12-27_15-28-48.jpg" alt="Фото 2"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2025-12-28_17-52-51.jpg" alt="Фото 3"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2025-12-28_17-52-56.jpg" alt="Фото 4"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2025-12-28_20-31-08.jpg" alt="Фото 5"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2025-12-28_20-33-33.jpg" alt="Фото 6"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2025-12-28_20-35-37.jpg" alt="Фото 7"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2026-01-19_18-34-57.jpg" alt="Фото 8"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2026-01-20_19-40-47.jpg" alt="Фото 9"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2026-01-20_20-43-42.jpg" alt="Фото 10"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2025-12-29_08-46-03.jpg" alt="Фото 22"></div>
-            <div class="gallery-item"><img src="media/portfolio/photo_2026-01-17_19-54-36.jpg" alt="Фото 23"></div>
-            <div class="gallery-item"><img src="media/photo_2026-02-08_14-08-12.jpg" alt="Фото 11"></div>
-            <div class="gallery-item"><img src="media/photo_2026-02-08_14-08-14.jpg" alt="Фото 12"></div>
-            <div class="gallery-item"><img src="media/photo_2026-02-08_14-08-29.jpg" alt="Фото 13"></div>
-            <div class="gallery-item"><img src="media/photo_2026-03-08_16-36-34.jpg" alt="Фото 14"></div>
-            <div class="gallery-item"><img src="media/photo_2026-03-08_16-36-40.jpg" alt="Фото 15"></div>
-            <div class="gallery-item"><img src="media/photo_2026-03-08_16-36-47.jpg" alt="Фото 16"></div>
-            <div class="gallery-item"><img src="media/photo_2026-03-08_16-36-52.jpg" alt="Фото 17"></div>
-            <div class="gallery-item"><img src="media/photo_2026-03-08_16-37-02.jpg" alt="Фото 18"></div>
-            <div class="gallery-item"><img src="media/photo_2026-03-08_16-37-10.jpg" alt="Фото 19"></div>
-            <div class="gallery-item"><img src="media/photo_2026-03-08_16-37-17.jpg" alt="Фото 20"></div>
-            <div class="gallery-item"><img src="media/photo_2026-03-08_16-37-20.jpg" alt="Фото 21"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2025-12-24_07-26-43.jpg" alt="Фото 1"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2025-12-27_15-28-48.jpg" alt="Фото 2"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2025-12-28_17-52-51.jpg" alt="Фото 3"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2025-12-28_17-52-56.jpg" alt="Фото 4"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2025-12-28_20-31-08.jpg" alt="Фото 5"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2025-12-28_20-33-33.jpg" alt="Фото 6"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2025-12-28_20-35-37.jpg" alt="Фото 7"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2026-01-19_18-34-57.jpg" alt="Фото 8"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2026-01-20_19-40-47.jpg" alt="Фото 9"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2026-01-20_20-43-42.jpg" alt="Фото 10"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2025-12-29_08-46-03.jpg" alt="Фото 11"></div>
+            <div class="gallery-item" data-category="portrait"><img src="media/portfolio/photo_2026-01-17_19-54-36.jpg" alt="Фото 12"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-02-08_14-08-12.jpg" alt="Фото 13"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-02-08_14-08-14.jpg" alt="Фото 14"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-02-08_14-08-29.jpg" alt="Фото 15"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-03-08_16-36-34.jpg" alt="Фото 16"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-03-08_16-36-40.jpg" alt="Фото 17"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-03-08_16-36-47.jpg" alt="Фото 18"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-03-08_16-36-52.jpg" alt="Фото 19"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-03-08_16-37-02.jpg" alt="Фото 20"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-03-08_16-37-10.jpg" alt="Фото 21"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-03-08_16-37-17.jpg" alt="Фото 22"></div>
+            <div class="gallery-item" data-category="street"><img src="media/photo_2026-03-08_16-37-20.jpg" alt="Фото 23"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_1_2026-03-21_16-38-15.jpg" alt="Граффити 1"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_2_2026-03-21_16-38-15.jpg" alt="Граффити 2"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_3_2026-03-21_16-38-15.jpg" alt="Граффити 3"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_4_2026-03-21_16-38-15.jpg" alt="Граффити 4"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_5_2026-03-21_16-38-15.jpg" alt="Граффити 5"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_6_2026-03-21_16-38-15.jpg" alt="Граффити 6"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_7_2026-03-21_16-38-15.jpg" alt="Граффити 7"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_8_2026-03-21_16-38-15.jpg" alt="Граффити 8"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_9_2026-03-21_16-38-15.jpg" alt="Граффити 9"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_10_2026-03-21_16-38-15.jpg" alt="Граффити 10"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_1_2026-03-23_09-43-12.jpg" alt="Граффити 11"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_2_2026-03-23_09-43-12.jpg" alt="Граффити 12"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_3_2026-03-23_09-43-12.jpg" alt="Граффити 13"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_4_2026-03-23_09-43-12.jpg" alt="Граффити 14"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_5_2026-03-23_09-43-12.jpg" alt="Граффити 15"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_6_2026-03-23_09-43-12.jpg" alt="Граффити 16"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_7_2026-03-23_09-43-12.jpg" alt="Граффити 17"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_8_2026-03-23_09-43-12.jpg" alt="Граффити 18"></div>
+            <div class="gallery-item" data-category="graffiti"><img src="media/photo_9_2026-03-23_09-43-12.jpg" alt="Граффити 19"></div>
         </div>
     </div>
 
@@ -153,6 +182,26 @@
     document.querySelectorAll('.gallery-item img').forEach(img => {
         img.addEventListener('click', function() {
             openModal(this.src);
+        });
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            const filter = this.dataset.filter;
+            document.querySelectorAll('.gallery-item').forEach((item, i) => {
+                const show = filter === 'all' || item.dataset.category === filter;
+                item.classList.toggle('hidden', !show);
+                if (show) {
+                    item.style.animationDelay = '';
+                    item.style.opacity = '0';
+                    item.style.animation = 'none';
+                    setTimeout(() => {
+                        item.style.animation = `fadeIn 0.4s ${i * 0.05}s forwards`;
+                    }, 10);
+                }
+            });
         });
     });
     
