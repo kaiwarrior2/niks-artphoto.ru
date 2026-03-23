@@ -570,7 +570,7 @@
             background-clip: text;
             animation: slideInLeft 0.8s ease-out forwards, gradientShift 3s ease-in-out infinite;
             animation-delay: 0.4s, 1s;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
         }
         
         .typewriter-line {
@@ -1788,12 +1788,14 @@
         setInterval(() => {
             wordIndex = (wordIndex + 1) % words.length;
             changingWord.style.opacity = '0';
-            changingWord.style.transform = 'translateY(20px)';
+            changingWord.style.transform = 'translateY(30px) scale(0.8)';
+            changingWord.style.filter = 'blur(10px)';
             setTimeout(() => {
                 changingWord.textContent = words[wordIndex];
                 changingWord.style.opacity = '1';
-                changingWord.style.transform = 'translateY(0)';
-            }, 500);
+                changingWord.style.transform = 'translateY(0) scale(1)';
+                changingWord.style.filter = 'blur(0px)';
+            }, 600);
         }, 5000);
 
         // Add CSS for ripple effect
