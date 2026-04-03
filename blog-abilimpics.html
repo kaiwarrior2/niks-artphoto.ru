@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Абилимпикс 2026 — Никс Фотограф</title>
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; background: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 700; line-height: 1.2; }
+
+        /* ── Navbar ── */
+        .navbar { position: fixed; top: 0; width: 100%; background: transparent; backdrop-filter: blur(15px) saturate(180%); z-index: 10000; padding: 0.5rem 0; border-bottom: 1px solid rgba(245,158,11,0.1); transition: all 0.3s ease; }
+        .navbar.scrolled { background: var(--bg-light); box-shadow: var(--shadow-light); padding: 0.3rem 0; border-bottom: 1px solid rgba(245,158,11,0.3); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: center; align-items: center; }
+        .nav-logo { margin-right: 50px; }
+        .nav-logo a { display: flex; align-items: center; text-decoration: none; }
+        .nav-logo img { height: 84px; width: auto; transition: all 0.3s; }
+        .nav-logo:hover img { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 10px rgba(245,158,11,0.5)); }
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-link { text-decoration: none; color: var(--text-light); font-weight: 500; position: relative; transition: all 0.3s; padding: 5px 10px; border-radius: 8px; }
+        .nav-link::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient-secondary); opacity: 0; border-radius: 8px; transition: opacity 0.3s; z-index: -1; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 2px; background: var(--gradient-secondary); transition: all 0.3s; transform: translateX(-50%); }
+        .nav-link:hover::before { opacity: 0.1; }
+        .nav-link:hover::after, .nav-link.active::after { width: 80%; }
+        .nav-link:hover, .nav-link.active { color: var(--text-dark); transform: translateY(-2px); text-shadow: var(--shadow-glow); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--primary-color); transition: all 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        @media (max-width: 768px) {
+            .nav-container { justify-content: space-between; }
+            .nav-logo { margin-right: 0; }
+            .hamburger { display: flex; z-index: 1001; }
+            .nav-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg-light); flex-direction: column; justify-content: center; align-items: center; transform: translateX(100%); opacity: 0; visibility: hidden; transition: all 0.4s; }
+            .nav-menu.active { transform: translateX(0); opacity: 1; visibility: visible; }
+            .nav-link { font-size: 1.5rem; padding: 15px 20px; }
+        }
+
+        /* ── Progress bar ── */
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--gradient-secondary); z-index: 20000; width: 0%; transition: width 0.1s linear; }
+
+        /* ── Hero ── */
+        .hero { position: relative; height: 70vh; min-height: 480px; overflow: hidden; display: flex; align-items: flex-end; }
+        .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 0.1s linear; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.75) 100%); }
+        .hero-content { position: relative; z-index: 2; max-width: 860px; margin: 0 auto; padding: 0 24px 3.5rem; width: 100%; animation: heroIn 0.8s ease both; }
+        @keyframes heroIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-back { display: inline-flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; font-weight: 500; margin-bottom: 1.2rem; transition: color 0.2s, gap 0.2s; }
+        .hero-back:hover { color: #fff; gap: 10px; }
+        .hero-tag { display: inline-block; background: var(--gradient-secondary); color: white; font-size: 0.75rem; font-weight: 700; padding: 4px 14px; border-radius: 50px; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.08em; }
+        .hero h1 { font-size: clamp(1.8rem, 4.5vw, 3rem); color: #fff; margin-bottom: 1rem; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+        .hero-meta { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+        .hero-meta span { color: rgba(255,255,255,0.75); font-size: 0.88rem; display: flex; align-items: center; gap: 5px; }
+
+        /* ── Layout ── */
+        .page-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 24px 5rem; display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start; }
+        @media (max-width: 900px) { .page-wrap { grid-template-columns: 1fr; } .sidebar { display: none; } }
+
+        /* ── Article ── */
+        .post-body { animation: fadeUp 0.6s 0.2s both; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .post-body p { color: var(--text-light); font-size: 1.1rem; line-height: 1.9; margin-bottom: 1.6rem; }
+        .post-body h2 { font-size: 1.6rem; color: var(--text-dark); margin: 2.5rem 0 1rem; padding-top: 0.5rem; }
+        .post-body h2::before { content: ''; display: block; width: 36px; height: 3px; background: var(--gradient-secondary); border-radius: 2px; margin-bottom: 0.7rem; }
+        .highlight-box { background: rgba(245,158,11,0.07); border-left: 3px solid var(--secondary-color); padding: 1.3rem 1.6rem; border-radius: 0 14px 14px 0; margin: 2rem 0; }
+        .highlight-box p { margin: 0; color: var(--text-dark) !important; font-size: 1.05rem !important; }
+        .emotion-box { background: rgba(239,68,68,0.07); border-left: 3px solid #ef4444; padding: 1.3rem 1.6rem; border-radius: 0 14px 14px 0; margin: 2rem 0; }
+        .emotion-box p { margin: 0; color: var(--text-dark) !important; font-size: 1.05rem !important; }
+
+        /* ── Inline photo ── */
+        .post-photo { width: 100%; border-radius: 16px; margin: 2rem 0; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+        .post-photo img { width: 100%; display: block; transition: transform 0.5s; }
+        .post-photo:hover img { transform: scale(1.02); }
+        .post-photo figcaption { padding: 0.7rem 1rem; font-size: 0.82rem; color: #71717a; text-align: center; background: var(--bg-card); }
+
+        /* ── Nav posts ── */
+        .nav-posts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid rgba(245,158,11,0.15); }
+        .nav-post-link { background: var(--bg-card); padding: 1.3rem 1.5rem; border-radius: 16px; text-decoration: none; border: 1px solid rgba(245,158,11,0.1); transition: all 0.3s; }
+        .nav-post-link:hover { border-color: rgba(245,158,11,0.4); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(245,158,11,0.15); }
+        .nav-post-link span { display: block; color: #71717a; font-size: 0.78rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .nav-post-link strong { color: var(--text-dark); font-size: 0.95rem; line-height: 1.4; display: block; }
+        .nav-post-link.next { text-align: right; }
+        .nav-post-link.empty { pointer-events: none; background: transparent; border-color: transparent; box-shadow: none; }
+
+        /* ── Sidebar ── */
+        .sidebar { position: sticky; top: 110px; animation: fadeUp 0.6s 0.4s both; }
+        .toc { background: var(--bg-card); border-radius: 18px; padding: 1.5rem; border: 1px solid rgba(245,158,11,0.12); box-shadow: var(--shadow-medium); margin-bottom: 1.5rem; }
+        .toc-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary-color); margin-bottom: 1rem; }
+        .toc-list { list-style: none; }
+        .toc-list li { margin-bottom: 0.1rem; }
+        .toc-list a { text-decoration: none; color: var(--text-light); font-size: 0.88rem; padding: 0.35rem 0.6rem; border-radius: 8px; display: block; transition: all 0.2s; border-left: 2px solid transparent; }
+        .toc-list a:hover, .toc-list a.active { color: var(--secondary-color); background: rgba(245,158,11,0.07); border-left-color: var(--secondary-color); }
+        .sidebar-card { background: var(--bg-card); border-radius: 18px; padding: 1.5rem; border: 1px solid rgba(245,158,11,0.12); box-shadow: var(--shadow-medium); text-align: center; }
+        .sidebar-card p { color: var(--text-light); font-size: 0.88rem; margin-bottom: 1rem; line-height: 1.6; }
+        .sidebar-btn { display: block; padding: 0.7rem 1rem; background: var(--gradient-secondary); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 0.88rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(245,158,11,0.3); }
+        .sidebar-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(245,158,11,0.45); }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progress"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo"><a href="index.html"><img src="images/niks.png" alt="Никс"></a></div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">🏠 Главная</a></li>
+                <li><a href="portfolio.html" class="nav-link">📸 Портфолио</a></li>
+                <li><a href="about.html" class="nav-link">👤 О нас</a></li>
+                <li><a href="blog.html" class="nav-link active">📝 Блог</a></li>
+                <li><a href="contact.html" class="nav-link">📞 Контакты</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="hero">
+        <img src="media/122112.png" alt="Абилимпикс 2026" class="hero-img" id="heroImg"
+             onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#1e1e2e,#f59e0b)'">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <a href="blog.html" class="hero-back">← Назад в блог</a>
+            <div class="hero-tag">🏆 Личное</div>
+            <h1>Абилимпикс 2026: Путь от подарка до разочарования, или почему «третье место» — это не всегда победа</h1>
+            <div class="hero-meta">
+                <span>📅 3 апреля 2026</span>
+                <span>✍️ Никс</span>
+                <span>⏱ 5 мин чтения</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="page-wrap">
+        <article class="post-body">
+
+            <h2 id="start">Всё началось с подарка</h2>
+            <p>Всё началось с 14 января 2026 года. Именно в этот день мне подарили фотоаппарат — то, о чём я так мечтал на Новый год. С этого момента я практически не расставался с ним. Я сразу начал обучаться фотографии: фотографировал всё подряд, пробовал разные режимы — портрет, автоматический и, конечно, ручной, чтобы чувствовать себя настоящим профессионалом.</p>
+            <p>Позже я создал свой Telegram-канал и начал выкладывать все свои работы туда. Это был мой маленький архив прогресса. Прошло 3 месяца.</p>
+
+            <figure class="post-photo">
+                <img src="media/122112.png" alt="Абилимпикс 2026"
+                     onerror="this.parentElement.style.display='none'">
+                <figcaption>Абилимпикс 2026 — БФУ имени Канта</figcaption>
+            </figure>
+
+            <h2 id="prep">Подготовка к Абилимпиксу</h2>
+            <p>И вот, где-то 2, а может, и 3 недели назад, нам объявили: скоро будет Абилимпикс, нужно готовиться. Моя лучшая подруга начала мне помогать, потому что иногда у меня что-то не получается — бывает такое. Я усердно готовился: фотографировал везде — дома, на улице, и даже мероприятия в школе. Кадры получались действительно хорошими.</p>
+
+            <div class="highlight-box">
+                <p>📷 Я выбрал компетенцию «фотограф», потому что сам так решил, сам так захотел.</p>
+            </div>
+
+            <h2 id="day">День соревнования</h2>
+            <p>На этой неделе наконец прошёл Абилимпикс. Когда всё началось, нам дали задание: пойти фотографировать всё, что мы видим в определённой комнате. Но комната оказалась очень маленькой — почти 12 человек там просто не помещалось. Было невероятно сложно что-то снять, потому что другие фотографы постоянно ходили на одни и те же точки и снимали то же самое, что и я. После съёмки я сел за ноутбук и начал отбирать лучшие кадры.</p>
+
+            <h2 id="result">Результат</h2>
+            <p>И вот сегодня, 3 апреля 2026 года, я пришёл в БФУ имени Канта в своём городе, чтобы узнать своё место за Абилимпикс и получить награду.</p>
+            <p>Когда я узнал результат… я полностью разочаровался в себе. У меня — третье место. Мне было невыносимо обидно. На самом деле я считаю, что должен был заработать второе место. Я не знаю, кто так посчитал, но для меня это лично провал.</p>
+
+            <div class="emotion-box">
+                <p>Я понимаю, что вы все, наверное, хотите сказать: «Третье место — это тоже хорошее место, молодец!» Но для меня это лично — нет.</p>
+            </div>
+
+            <h2 id="thoughts">Мои мысли</h2>
+            <p>Это не тот результат, к которому я шёл с 14 января, когда впервые взял в руки подаренный фотоаппарат. Это не то место, ради которого я учил ручной режим, снимал в тесных комнатах и переживал.</p>
+            <p>Третье место — это не про меня. Я хотел большего. И мне обидно.</p>
+
+            <div class="nav-posts">
+                <a href="blog-camera.html" class="nav-post-link">
+                    <span>← Предыдущая</span>
+                    <strong>Как выбрать первый фотоаппарат</strong>
+                </a>
+                <div class="nav-post-link empty"></div>
+            </div>
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="toc">
+                <div class="toc-title">Содержание</div>
+                <ul class="toc-list">
+                    <li><a href="#start">Всё началось с подарка</a></li>
+                    <li><a href="#prep">Подготовка к Абилимпиксу</a></li>
+                    <li><a href="#day">День соревнования</a></li>
+                    <li><a href="#result">Результат</a></li>
+                    <li><a href="#thoughts">Мои мысли</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-card">
+                <p>Следи за моими работами и новостями в Telegram</p>
+                <a href="https://t.me/objektivniksa" class="sidebar-btn" target="_blank">✈️ Написать в Telegram</a>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        const progress = document.getElementById('progress');
+        const heroImg = document.getElementById('heroImg');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            const doc = document.documentElement;
+            const pct = (window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100;
+            progress.style.width = pct + '%';
+            if (heroImg) heroImg.style.transform = `scale(1.08) translateY(${window.scrollY * 0.25}px)`;
+        });
+
+        const headings = document.querySelectorAll('.post-body h2[id]');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    tocLinks.forEach(a => a.classList.remove('active'));
+                    const active = document.querySelector(`.toc-list a[href="#${e.target.id}"]`);
+                    if (active) active.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        headings.forEach(h => observer.observe(h));
+    </script>
+    <script src="theme.js"></script>
+</body>
+</html>
